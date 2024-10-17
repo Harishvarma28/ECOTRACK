@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            margin: 0;
+            padding: 0;
+        }
+
+        .header {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #4CAF50;
+            padding: 10px 20px;
+            box-sizing: border-box;
+        }
+
+        .header .logo img {
+            width: 100px;
+        }
+
+        .header h1 {
+            font-size: 24px;
+            color: white;
+            margin: 10;
+        }
+        .header .icons {
+            display: flex; /* Use flexbox to align the icons horizontally */
+            align-items: center; /* Center the icons vertically */
+            justify-content: flex-end; /* Align the icons to the right (optional) */
+        }
+
+        .icon {
+            width: 25px;
+            cursor: pointer;
+            margin: 0; /* Remove margins */
+            padding: 0; /* Ensure no padding is applied */
+        }
+
+
+        .subheader {
+            background-color: #f1f1f1;
+            padding: 10px 0;
+            text-align: center;
+        }
+
+        .subheader button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            margin: 0 10px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .subheader button:hover {
+            background-color: #45a049;
+        }
+
+        .container {
+            display: none; /* Hide all containers by default */
+            margin: 50px auto;
+            width: 60%;
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+        .admin-container {
+            display: none;
+            margin: 50px auto;
+            width: 60%;
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .admin-container h2 {
+            text-align: center;
+            color: #4CAF50;
+        }
+
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+
+        input[type="date"], select, input[type="number"] {
+            width: 100%;
+            padding: 10px;
+            margin: 5px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        input[type="text"], input[type="password"], select {
+            width: 100%;
+            padding: 10px;
+            margin: 5px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        button[type="button"] {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button[type="button"]:hover {
+            background-color: #45a049;
+        }
+
+        table {
+            width: 100%;
+            margin-top: 30px;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 10px;
+            border: 1px solid #ccc;
+            text-align: left;
+        }
+
+        th {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        /* Hidden by default, only for admin */
+        .admin-only {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Main Header -->
+    <div class="header">
+        <div class="logo">
+            <img src="D:\Harish\capstone project\logo.png" alt="NWMS_logo" width="104" height="112">
+        </div>
+        <h1>ECOTRACK Dashboard</h1>
+        <div class="icons"></div>
+            <img src="images/logout-icon.png" alt="Logout" class="icon" onclick="logoutUser()">
+            <img src="images/user-setup-icon.png" alt="User Setup" class="icon admin-only" id="userSetupIcon" onclick="showContainer('userSetupContainer')">
+            <img src="images/material-setup-icon.png" alt="Material Setup" class="icon admin-only" id="materialSetupIcon" onclick="showContainer('materialSetupContainer')">
+        </div>
+    </div>
+
+    <!-- Subheader with Navigation Buttons -->
+    <div class="subheader">
+        <button onclick="showContainer('dataCollectionContainer')">Recycling Data Collection</button>
+        <button onclick="showContainer('revenueSalesContainer')">Recycling Revenue Sales</button>
+        <button onclick="showContainer('landfillExpenseContainer')">Landfill Expense</button>
+
+        <!-- Reporting button, visible only for admin -->
+        <button class="admin-only" id="reportingButton" onclick="showContainer('reportingContainer')">Reporting</button>
+    </div>
+
+    <!-- Containers for Different Sections -->
+
+    <!-- Container for Recycling Data Collection -->
+    <div class="container" id="dataCollectionContainer">
+        <h2>Record Recycle Data</h2>
+        <form id="wasteForm">
+            <div class="form-group">
+                <label for="date">Date:</label>
+                <input type="date" id="date" required>
+            </div>
+            <div class="form-group">
+                <label for="category">Waste Category:</label>
+                <select id="category" required>
+                    <option value="">Select Category</option>
+                    <option value="FOOD WASTE">Food Waste</option>
+                    <option value="ALUMINIUM">Aluminium</option>
+                    <option value="CARDBOARD">Cardboard</option>
+                    <option value="GLASS">Glass</option>
+                    <option value="METAL-Cans">METAL-Cans</option>
+                    <option value="METAL-Scrap">METAL-Scrap</option>
+                    <option value="PAPER-Books">PAPER-Books</option>
+                    <option value="PAPER-Mixed">PAPER-Mixed</option>
+                    <option value="PAPER-Newspaper">PAPER-Newspaper</option>
+                    <option value="PAPER-White">PAPER-White</option>
+                    <option value="PLASTIC-PET">PLASTIC-PET</option>
+                    <option value="PLASTIC-HDPE">PLASTIC-HDPE</option>
+                    <option value="PLASTIC-HDPE">PLASTIC-HDPE NATURAL</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="weight">Weight (lb):</label>
+                <input type="number" id="weight" step="0.01" placeholder="Enter weight in pounds" required>
+            </div>
+            <button type="button" onclick="saveData()">Record Data</button>
+        </form>
+
+        <h2>Recorded Data</h2>
+        <table id="dataTable">
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Category</th>
+                    <th>Weight (lb)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Data will be appended here -->
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Container for Recycling Revenue Sales -->
+    <div class="container" id="revenueSalesContainer">
+        <h2>Record Recycling Revenue Sales</h2>
+        <form id="salesForm">
+            <div class="form-group">
+                <label for="salesDate">Date:</label>
+                <input type="date" id="salesDate" required>
+            </div>
+            <div class="form-group">
+                <label for="salesCategory">Category:</label>
+                <select id="salesCategory" required>
+                    <option value="">Select Category</option>
+                    <option value="ALUMINIUM">Aluminium</option>
+                    <option value="CARDBOARD">Cardboard</option>
+                    <option value="GLASS">Glass</option>
+                    <option value="METAL-Cans">METAL-Cans</option>
+                    <option value="METAL-Scrap">METAL-Scrap</option>
+                    <option value="PAPER-Books">PAPER-Books</option>
+                    <option value="PAPER-Mixed">PAPER-Mixed</option>
+                    <option value="PAPER-Newspaper">PAPER-Newspaper</option>
+                    <option value="PAPER-White">PAPER-White</option>
+                    <option value="PLASTIC-PET">PLASTIC-PET</option>
+                    <option value="PLASTIC-HDPE">PLASTIC-HDPE</option>
+                    <option value="PLASTIC-HDPE-NATURAL">PLASTIC-HDPE NATURAL</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="revenue">Revenue ($):</label>
+                <input type="number" id="revenue" step="0.01" placeholder="Enter revenue" required>
+            </div>
+            <div class="form-group">
+                <label for="buyerName">Buyer Name:</label>
+                <input type="text" id="buyerName" placeholder="Enter buyer's name" required>
+            </div>
+            <button type="button" onclick="saveSalesData()">Record Sales</button>
+        </form>
+    
+        <h2>Recorded Sales</h2>
+        <table id="salesTable">
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Category</th>
+                    <th>Revenue ($)</th>
+                    <th>Buyer Name</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Sales data will be appended here -->
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Container for Landfill Expense -->
+    <div class="container" id="landfillExpenseContainer">
+        <h2>Record Landfill Expense</h2>
+        <form id="landfillForm">
+            <div class="form-group">
+                <label for="landfillDate">Landfill Date:</label>
+                <input type="date" id="landfillDate" required>
+            </div>
+            <div class="form-group">
+                <label for="landfillWeight">Weight (lb):</label>
+                <input type="number" id="landfillWeight" step="0.01" placeholder="Enter weight in pounds" required>
+            </div>
+            <div class="form-group">
+                <label for="landfillExpense">Expense ($):</label>
+                <input type="number" id="landfillExpense" step="0.01" placeholder="Enter expense in dollars" required>
+            </div>
+            <div class="form-group">
+                <label for="haulerName">Hauler's Name:</label>
+                <input type="text" id="haulerName" placeholder="Enter hauler's name" required>
+            </div>
+            <button type="button" onclick="saveLandfillData()">Record Expense</button>
+        </form>
+    
+        <h2>Recorded Landfill Expenses</h2>
+        <table id="landfillTable">
+            <thead>
+                <tr>
+                    <th>Landfill Date</th>
+                    <th>Weight (lb)</th>
+                    <th>Expense ($)</th>
+                    <th>Hauler's Name</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Landfill expense data will be appended here -->
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Container for Reporting (only visible to admin) -->
+    <div class="container admin-container" id="reportingContainer">
+        <h2>Reporting</h2>
+        <p>This section will display reports based on collected data.</p>
+    </div>
+    <div id="userSetupContainer" class="container admin-container">
+        <h2>User Setup</h2>
+        <form id="userSetupForm">
+            <div class="form-group">
+                <label for="username">Username:</label>
+                <input type="text" id="username" placeholder="Enter username">
+            </div>
+            <div class="form-group">
+                <label for="role">Role:</label>
+                <select id="role">
+                    <option value="">Select Role</option>
+                    <option value="admin">Admin</option>
+                    <option value="user">User</option>
+                </select>
+            </div>
+            <button type="button">Create User</button>
+        </form>
+    </div>
+
+    <div id="materialSetupContainer" class="container admin-container">
+        <h2>Recycling Material Setup</h2>
+        <form id="materialSetupForm">
+            <div class="form-group">
+                <label for="category">Material Category:</label>
+                <input type="text" id="category" placeholder="Enter category name">
+            </div>
+            <button type="button">Add Category</button>
+        </form>
+    </div>
+
+    <script>
+        // Navigation function for button clicks
+        function navigateTo(page) {
+            window.location.href = page;
+        }
+        function logoutUser() {
+            localStorage.removeItem('userRole');
+            window.location.href = 'login.html'; // Redirect to login page
+        }
+
+        // Check for admin access
+        function checkUserAccess() {
+            var userRole = localStorage.getItem('userRole');
+            if (userRole) {
+                if (userRole === 'admin') {
+                    document.querySelectorAll('.admin-only').forEach(function(elem) {
+                        elem.style.display = 'inline-block';
+                    });
+                }
+            }
+        }
+
+        // Show the relevant container when its corresponding button is clicked
+        function showContainer(containerId) {
+            // Hide all containers
+            var containers = document.querySelectorAll('.container');
+            containers.forEach(function(container) {
+                container.style.display = 'none';
+            });
+
+            // Show the selected container
+            document.getElementById(containerId).style.display = 'block';
+        }
+
+        function saveData() {
+            // Get the form values
+            var date = document.getElementById('date').value;
+            var category = document.getElementById('category').value;
+            var weight = document.getElementById('weight').value;
+
+            // Validate the form inputs
+            if (!date || !category || !weight) {
+                alert("Please fill all fields.");
+                return;
+            }
+
+            // Store data in localStorage (for demo purposes)
+            var records = JSON.parse(localStorage.getItem('wasteRecords')) || [];
+
+            records.push({
+                date: date,
+                category: category,
+                weight: parseFloat(weight)
+            });
+
+            localStorage.setItem('wasteRecords', JSON.stringify(records));
+
+            // Clear the form after submission
+            document.getElementById('wasteForm').reset();
+
+            // Refresh the displayed data
+            displayData();
+        }
+
+        function displayData() {
+            var records = JSON.parse(localStorage.getItem('wasteRecords')) || [];
+            var tbody = document.querySelector('#dataTable tbody');
+            tbody.innerHTML = ''; // Clear existing data
+
+            records.forEach(function(record) {
+                var row = document.createElement('tr');
+
+                var dateCell = document.createElement('td');
+                dateCell.textContent = record.date;
+                row.appendChild(dateCell);
+
+                var categoryCell = document.createElement('td');
+                categoryCell.textContent = record.category;
+                row.appendChild(categoryCell);
+
+                var weightCell = document.createElement('td');
+                weightCell.textContent = record.weight + ' lb';
+                row.appendChild(weightCell);
+
+                tbody.appendChild(row);
+            });
+        }
+        function saveSalesData() {
+          // Get the form values
+            var date = document.getElementById('salesDate').value;
+            var category = document.getElementById('salesCategory').value;
+            var revenue = document.getElementById('revenue').value;
+            var buyerName = document.getElementById('buyerName').value;
+
+           // Validate the form inputs
+           if (!date || !category || !revenue || !buyerName) {
+                alert("Please fill all fields.");
+                return;
+            }
+
+            // Store sales data in localStorage (for demo purposes)
+            var salesRecords = JSON.parse(localStorage.getItem('salesRecords')) || [];
+
+            salesRecords.push({
+                date: date,
+                category: category,
+                revenue: parseFloat(revenue),
+                buyerName: buyerName
+            });
+
+            localStorage.setItem('salesRecords', JSON.stringify(salesRecords));
+
+            // Clear the form after submission
+            document.getElementById('salesForm').reset();
+
+            // Refresh the displayed sales data
+            displaySalesData();
+        }
+
+        function displaySalesData() {
+            var salesRecords = JSON.parse(localStorage.getItem('salesRecords')) || [];
+            var tbody = document.querySelector('#salesTable tbody');
+            tbody.innerHTML = ''; // Clear existing data
+
+            salesRecords.forEach(function(record) {
+                var row = document.createElement('tr');
+
+                var dateCell = document.createElement('td');
+                dateCell.textContent = record.date;
+                row.appendChild(dateCell);
+
+                var categoryCell = document.createElement('td');
+                categoryCell.textContent = record.category;
+                row.appendChild(categoryCell);
+
+                var revenueCell = document.createElement('td');
+                revenueCell.textContent = '$' + record.revenue.toFixed(2);
+                row.appendChild(revenueCell);
+
+                var buyerNameCell = document.createElement('td');
+                buyerNameCell.textContent = record.buyerName;
+                row.appendChild(buyerNameCell);
+
+                tbody.appendChild(row);
+            });
+        }
+        function saveLandfillData() {
+            // Get the form values
+            var landfillDate = document.getElementById('landfillDate').value;
+            var landfillWeight = document.getElementById('landfillWeight').value;
+            var landfillExpense = document.getElementById('landfillExpense').value;
+            var haulerName = document.getElementById('haulerName').value;
+
+            // Validate the form inputs
+            if (!landfillDate || !landfillWeight || !landfillExpense || !haulerName) {
+                alert("Please fill all fields.");
+                return;
+            }
+
+            // Store landfill data in localStorage (for demo purposes)
+            var landfillRecords = JSON.parse(localStorage.getItem('landfillRecords')) || [];
+
+            landfillRecords.push({
+                landfillDate: landfillDate,
+                landfillWeight: parseFloat(landfillWeight),
+                landfillExpense: parseFloat(landfillExpense),
+                haulerName: haulerName
+            });
+
+            localStorage.setItem('landfillRecords', JSON.stringify(landfillRecords));
+
+            // Clear the form after submission
+            document.getElementById('landfillForm').reset();
+
+            // Refresh the displayed landfill data
+            displayLandfillData();
+        }
+
+        function displayLandfillData() {
+            var landfillRecords = JSON.parse(localStorage.getItem('landfillRecords')) || [];
+            var tbody = document.querySelector('#landfillTable tbody');
+            tbody.innerHTML = ''; // Clear existing data
+
+            landfillRecords.forEach(function(record) {
+                var row = document.createElement('tr');
+
+                var dateCell = document.createElement('td');
+                dateCell.textContent = record.landfillDate;
+                row.appendChild(dateCell);
+
+                var weightCell = document.createElement('td');
+                weightCell.textContent = record.landfillWeight + ' lb';
+                row.appendChild(weightCell);
+
+                var expenseCell = document.createElement('td');
+                expenseCell.textContent = '$' + record.landfillExpense.toFixed(2);
+                row.appendChild(expenseCell);
+
+                var haulerCell = document.createElement('td');
+                haulerCell.textContent = record.haulerName;
+                row.appendChild(haulerCell);
+
+                tbody.appendChild(row);
+            });
+        }
+        
+
+        // Load the sales data on page load
+        window.onload = function() {
+            checkUserAccess(); // Check if the user is an admin
+            displayData();      // Display existing recorded data for waste collection
+            displaySalesData(); // Display existing recorded sales data
+            displayLandfillData(); // Display existing recorded landfill data
+        };
+
+    </script>
+
+</body>
+</html>
