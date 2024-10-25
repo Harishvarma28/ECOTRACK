@@ -1,0 +1,181 @@
+<b mat-dialog-title>{{ data.title }}</b>
+
+<div mat-dialog-content>
+  <form>
+    <!-- recycling-form.component.html -->
+    <div class="form-container" *ngIf="data.formType === 'recyclingCollection'">
+    
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Collection Date</mat-label>
+        <input matInput [matDatepicker]="collectionDatePicker" placeholder="Select collection date">
+        <mat-datepicker-toggle matSuffix [for]="collectionDatePicker"></mat-datepicker-toggle>
+        <mat-datepicker #collectionDatePicker></mat-datepicker>
+      </mat-form-field>
+    
+      <mat-divider></mat-divider>
+      <h3>Recyclable Materials</h3>
+    
+      <div class="category">
+        <h4>Food Waste</h4>
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Weight (lbs)</mat-label>
+          <input matInput type="number" placeholder="Enter weight">
+        </mat-form-field>
+      </div>
+    
+      <div class="category">
+        <h4>Aluminum</h4>
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Weight (lbs)</mat-label>
+          <input matInput type="number" placeholder="Enter weight">
+        </mat-form-field>
+      </div>
+    
+      <div class="category">
+        <h4>Cardboard</h4>
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Weight (lbs)</mat-label>
+          <input matInput type="number" placeholder="Enter weight">
+        </mat-form-field>
+      </div>
+    
+      <div class="category">
+        <h4>Glass</h4>
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Weight (lbs)</mat-label>
+          <input matInput type="number" placeholder="Enter weight">
+        </mat-form-field>
+      </div>
+    
+      <div class="category">
+        <h4>Metal</h4>
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Weight (lbs)</mat-label>
+          <input matInput type="number" placeholder="Enter weight">
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Sub-category</mat-label>
+          <mat-select>
+            <mat-option value="cans">Cans</mat-option>
+            <mat-option value="scrap">Scrap</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    
+      <div class="category">
+        <h4>Paper</h4>
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Weight (lbs)</mat-label>
+          <input matInput type="number" placeholder="Enter weight">
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Sub-category</mat-label>
+          <mat-select>
+            <mat-option value="books">Books</mat-option>
+            <mat-option value="mixed">Mixed</mat-option>
+            <mat-option value="newspaper">Newspaper</mat-option>
+            <mat-option value="white">White</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    
+      <div class="category">
+        <h4>Plastic</h4>
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Weight (lbs)</mat-label>
+          <input matInput type="number" placeholder="Enter weight">
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Sub-category</mat-label>
+          <mat-select>
+            <mat-option value="pet">#1 PET</mat-option>
+            <mat-option value="hdpe-colored">#2 HDPE Colored</mat-option>
+            <mat-option value="hdpe-natural">#2 HDPE Natural</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </div>
+    
+
+
+<div *ngIf="data.formType === 'recyclingRevenue'" class="revenue-form">
+
+  <mat-form-field appearance="outline" class="full-width">
+    <mat-label>Sales Amount (US$)</mat-label>
+    <input matInput placeholder="Enter sales amount" type="number">
+  </mat-form-field>
+
+  <mat-form-field appearance="outline" class="full-width">
+    <mat-label>Revenue Date</mat-label>
+    <input matInput [matDatepicker]="revenueDatePicker" placeholder="Select revenue date">
+    <mat-datepicker-toggle matSuffix [for]="revenueDatePicker"></mat-datepicker-toggle>
+    <mat-datepicker #revenueDatePicker></mat-datepicker>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline" class="full-width">
+    <mat-label>Sale Date</mat-label>
+    <input matInput [matDatepicker]="saleDatePicker" placeholder="Select sale date">
+    <mat-datepicker-toggle matSuffix [for]="saleDatePicker"></mat-datepicker-toggle>
+    <mat-datepicker #saleDatePicker></mat-datepicker>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline" class="full-width">
+    <mat-label>Material Type</mat-label>
+    <mat-select placeholder="Choose material type">
+      <mat-option *ngFor="let material of materialTypes" [value]="material.value">
+        {{ material.label }} ({{ material.weight }})
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline" class="full-width">
+    <mat-label>Revenue (Amount in US$)</mat-label>
+    <input matInput placeholder="Enter revenue amount" type="number">
+  </mat-form-field>
+
+  <mat-form-field appearance="outline" class="full-width">
+    <mat-label>Buyer</mat-label>
+    <input matInput placeholder="Enter buyer's company name">
+  </mat-form-field>
+</div>
+
+
+<div *ngIf="data.formType === 'landfillExpense'" class="expense-form">
+
+
+  <mat-form-field appearance="outline" class="full-width">
+    <mat-label>Expense Amount (US$)</mat-label>
+    <input matInput placeholder="Enter expense amount" type="number">
+  </mat-form-field>
+
+  <mat-form-field appearance="outline" class="full-width">
+    <mat-label>Expense Type</mat-label>
+    <input matInput placeholder="Enter type of expense">
+  </mat-form-field>
+
+  <mat-form-field appearance="outline" class="full-width">
+    <mat-label>Landfill Date</mat-label>
+    <input matInput [matDatepicker]="landfillDatePicker" placeholder="Select landfill date">
+    <mat-datepicker-toggle matSuffix [for]="landfillDatePicker"></mat-datepicker-toggle>
+    <mat-datepicker #landfillDatePicker></mat-datepicker>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline" class="full-width">
+    <mat-label>Weight (lbs)</mat-label>
+    <input matInput placeholder="Enter weight in lbs" type="number">
+  </mat-form-field>
+
+  <mat-form-field appearance="outline" class="full-width">
+    <mat-label>Landfill / Hauler</mat-label>
+    <input matInput placeholder="Enter landfill or hauler company name">
+  </mat-form-field>
+</div>
+
+
+  </form>
+</div>
+
+<div mat-dialog-actions>
+  <button mat-button (click)="onClose()">Cancel</button>
+  <button mat-button cdkFocusInitial>Save</button>
+</div>

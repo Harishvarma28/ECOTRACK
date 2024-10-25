@@ -1,0 +1,53 @@
+/* dashboard.component.scss */
+
+
+.picsum-img-wrapper {
+    text-align: center;
+    height: 350px;
+  }
+  
+  .picsum-img-wrapper img {
+    height: 100%;
+    width: 80%;
+    border-radius: 6px;
+    border: rgb(45, 230, 217) 3px solid;
+  }
+
+  .custom-card {
+    min-height: 200px; /* Ensures all cards are the same height */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    color: white; /* Makes text stand out on colored backgrounds */
+  }
+
+  ::ng-deep .carousel-control-next-icon 
+  {
+    background-color: grey;
+    border-radius: 50%;
+  }
+  ::ng-deep .carousel-control-prev-icon
+  {
+    background-color: grey;
+    border-radius: 50%;
+  }
+
+  .custom-card h5 {
+    font-weight: bold;
+  }
+
+  .custom-card .btn {
+    width: 100%; /* Makes the button full-width */
+  }
+
+  .container {
+    max-width: 1200px;
+  }
+
+  /* Responsiveness */
+  @media (max-width: 768px) {
+    .custom-card {
+      min-height: 250px; /* Reduce height on smaller screens */
+    }
+  }
+  
