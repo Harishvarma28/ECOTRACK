@@ -11,18 +11,30 @@ export class LoginComponent {
     email: string = '';
     password: string = '';
 
-    constructor(private authService: AuthService,private router: Router) {}
+    constructor(private authService: AuthService, private router: Router) {}
 
     onSubmit() {
         this.authService.login(this.email, this.password).subscribe(
-            response => {
-                console.log('Login successful', response);
-                this.router.navigate(['/dashboard'])
-                // Handle successful login (e.g., redirect)
+            (response) => {
+                // Check user role and status
+                console.log(response.user.status)
+                if (response.user.status === 'New User') {
+                    // Redirect to change password page for new users
+                    this.router.navigate(['/auth/changepassword']);
+                } else if (response.user.role === 'Admin' || response.user.role=== 'User') {
+                    // Redirect to the dashboard for admin or existing users
+                    this.router.navigate(['/dashboard']);
+                } else {
+                    // Handle other statuses or messages if needed
+                }
             },
-            error => {
-                console.error('Login failed', error);
-                // Handle error (show message to user)
+            (error) => {
+                // Handle errors based on the response from the backend
+                if (error.error === 'Inactive user') {
+                    alert('Your account is inactive. Please contact support.');
+                } else {
+                    alert(error.error);
+                }
             }
         );
     }

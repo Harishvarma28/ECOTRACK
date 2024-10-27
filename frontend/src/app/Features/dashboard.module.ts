@@ -17,11 +17,15 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { ManageUsersComponent } from './manage-users/manage-users.component';
 import { MatTableModule } from '@angular/material/table';
 import { MatIconModule } from '@angular/material/icon';
+import { UserDialogComponent } from './user-dialog/user-dialog.component';
+import { ReactiveFormsModule } from '@angular/forms';
+
 @NgModule({
   declarations: [
     DashboardComponent,
     DialogComponent,
-    ManageUsersComponent  // Add the DialogComponent here
+    ManageUsersComponent,
+    UserDialogComponent  // Add the DialogComponent here
   ],
   imports: [
     CommonModule,
@@ -37,11 +41,13 @@ import { MatIconModule } from '@angular/material/icon';
     MatDatepickerModule,
     MatNativeDateModule,
     MatTableModule,
-    MatIconModule
+    MatIconModule,
+    ReactiveFormsModule 
   ],
   exports: [
     DashboardComponent,
-    ManageUsersComponent
+    ManageUsersComponent,
+    UserDialogComponent
   ]
 })
 export class DashboardModule { }

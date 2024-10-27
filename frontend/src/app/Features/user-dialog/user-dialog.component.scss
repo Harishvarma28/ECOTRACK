@@ -1,0 +1,50 @@
+/* Style for the form */
+
+.mat-dialog-content {
+    padding: 20px; /* Add padding around dialog content */
+    width: 400px;
+  }
+  
+  .form-field {
+    width: 100%; /* Make form fields take the full width */
+    margin-bottom: 16px; /* Add margin between fields */
+  }
+
+.user-form {
+    display: flex;
+    flex-direction: column; /* Vertical layout */
+    gap: 16px; /* Space between form fields */
+  }
+  
+  /* Style for buttons */
+  .cancel-button,
+  .confirm-button {
+    min-width: 100px; /* Minimum width for buttons */
+    background-color: #f44336; /* Red color for cancel button */
+    color: white; /* Text color */
+    border-radius: 4px; /* Rounded corners */
+    padding: 8px 16px; /* Padding for buttons */
+    text-transform: uppercase; /* Uppercase text */
+    transition: background-color 0.3s ease; /* Smooth transition */
+  }
+  
+  /* Style for the confirm button */
+  .confirm-button {
+    background-color: #3f51b5; /* Blue color for confirm button */
+  }
+  
+  /* Hover effects for buttons */
+  .cancel-button:hover {
+    background-color: #c62828; /* Darker red on hover */
+  }
+  
+  .confirm-button:hover {
+    background-color: #303f9f; /* Darker blue on hover */
+  }
+  
+  /* Delete confirmation text styling */
+  p {
+    color: red; /* Style for delete confirmation text */
+    text-align: center; /* Center text */
+  }
+  

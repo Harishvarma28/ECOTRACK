@@ -1,0 +1,53 @@
+<h2 mat-dialog-title>
+  {{ data.action === 'add' ? 'Add User' : data.action === 'edit' ? 'Edit User' : 'Delete User' }}
+</h2>
+<mat-dialog-content>
+  <ng-container *ngIf="data.action === 'add' || data.action === 'edit'">
+    <form [formGroup]="userForm" class="user-form">
+      <div class="form-field">
+        <mat-form-field appearance="fill">
+          <mat-label>Name</mat-label>
+          <input matInput formControlName="name" required />
+        </mat-form-field>
+      </div>
+      <div class="form-field">
+        <mat-form-field appearance="fill">
+          <mat-label>Email</mat-label>
+          <input matInput formControlName="email" required />
+        </mat-form-field>
+      </div>
+      <div class="form-field">
+        <mat-form-field appearance="fill">
+          <mat-label>University</mat-label>
+          <input matInput formControlName="university" required />
+        </mat-form-field>
+      </div>
+      <div class="form-field">
+        <mat-form-field appearance="fill">
+          <mat-label>Status</mat-label>
+          <mat-select formControlName="status">
+            <mat-option value="Active">Active</mat-option>
+            <mat-option value="Inactive">Inactive</mat-option>
+            <mat-option value="New User">New User</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div class="form-field">
+        <mat-form-field appearance="fill">
+          <mat-label>Role</mat-label>
+          <mat-select formControlName="role">
+            <mat-option value="User">User</mat-option>
+            <mat-option value="Admin">Admin</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </form>
+  </ng-container>
+  <ng-container *ngIf="data.action === 'delete'">
+    <p>Are you sure you want to delete {{ data.user?.name }}?</p>
+  </ng-container>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button (click)="close()">Cancel</button>
+  <button mat-button (click)="confirm()" [disabled]="userForm.invalid">Confirm</button>
+</mat-dialog-actions>
