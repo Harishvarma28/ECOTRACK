@@ -1,52 +1,52 @@
-<!-- dashboard.component.html -->
-<div class="container mt-5">
-    <ngb-carousel *ngIf="images">
+<div class="dashboard-container">
+  <div class="animated-bg">
+  <!-- Carousel Section -->
+  <div class="carousel-container">
+    <ngb-carousel *ngIf="images" [interval]="3000" [pauseOnHover]="true">
       <ng-template ngbSlide *ngFor="let image of images; let i = index">
-        <div class="picsum-img-wrapper">
+        <div class="carousel-image-wrapper">
           <img [src]="image" alt="Carousel Image {{ i + 1 }}">
-        </div>
-        <div class="carousel-caption">
-          <h3>Slide {{ i + 1 }}</h3>
+          <div class="carousel-overlay">
+            <div class="carousel-caption">
+              <h3>Slide {{ i + 1 }}</h3>
+            </div>
+          </div>
         </div>
       </ng-template>
     </ngb-carousel>
-  
-    <!-- Cards Section -->
-    <div class="container mt-5">
-        <!-- Cards Section -->
-        <div class="row mt-4">
-          <div class="col-md-4 mb-3 d-flex align-items-stretch">
-            <div class="card custom-card shadow-sm" style="background-color: #28a745;">
-              <div class="card-body text-center">
-                <h5 class="card-title">Optimize Recycling Collection</h5>
-                <p class="card-text">Efficiently manage your recycling collection schedules and routes.</p>
-                <button class="btn btn-outline-light" (click)="openRecyclingCollectionForm()">Set-up Now</button>
-              </div>
-            </div>
-          </div>
-      
-          <div class="col-md-4 mb-3 d-flex align-items-stretch">
-            <div class="card custom-card shadow-sm" style="background-color: #218838;">
-              <div class="card-body text-center">
-                <h5 class="card-title">Boost Recycling Sales</h5>
-                <p class="card-text">Track and maximize your revenue from recycled materials.</p>
-                <button class="btn btn-outline-light" (click)="openRecyclingRevenueForm()">Set-up Now</button>
-              </div>
-            </div>
-          </div>
-      
-          <div class="col-md-4 mb-3 d-flex align-items-stretch">
-            <div class="card custom-card shadow-sm" style="background-color: #1e7e34;">
-              <div class="card-body text-center">
-                <h5 class="card-title">Control Landfill Costs</h5>
-                <p class="card-text">Effectively monitor and reduce landfill expenses.</p>
-                <button class="btn btn-outline-light" (click)="openLandfillExpenseForm()">Set-up Now</button>
-              </div>
-            </div>
+  </div>
+
+  <!-- Cards Section -->
+  <div class="cards-container mt-5">
+    <div class="row">
+      <div class="col-md-4 mb-4">
+        <div class="card shadow-sm card-animate" style="background-color: #FFB74D;">
+          <div class="card-body text-center">
+            <h5 class="card-title">Optimize Recycling Collection</h5>
+            <p class="card-text">Efficiently manage your recycling collection schedules and routes.</p>
+            <button class="btn btn-outline-light w-100" (click)="openRecyclingCollectionForm()">Set-up Now</button>
           </div>
         </div>
       </div>
+      <div class="col-md-4 mb-4">
+        <div class="card shadow-sm card-animate" style="background-color: #4DB6AC;">
+          <div class="card-body text-center">
+            <h5 class="card-title">Boost Recycling Sales</h5>
+            <p class="card-text">Track and maximize your revenue from recycled materials.</p>
+            <button class="btn btn-outline-light w-100" (click)="openRecyclingRevenueForm()">Set-up Now</button>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4 mb-4">
+        <div class="card shadow-sm card-animate" style="background-color: #7986CB;">
+          <div class="card-body text-center">
+            <h5 class="card-title">Control Landfill Costs</h5>
+            <p class="card-text">Effectively monitor and reduce landfill expenses.</p>
+            <button class="btn btn-outline-light w-100" (click)="openLandfillExpenseForm()">Set-up Now</button>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
-  
-
-  
+</div>
+</div>

@@ -19,8 +19,8 @@ export class UserService {
 
   constructor(private http: HttpClient) {}
 
-  getUsers(): Observable<User[]> {
-    return this.http.get<User[]>(this.apiUrl);
+  getUsers(): Observable<{ users: User[] }> {
+    return this.http.get<{ users: User[]; }>(this.apiUrl);
   }
 
   addUser(user: { name: string; contact: string; university: string; status: string; email: string; role: string }): Observable<any> {
@@ -28,11 +28,12 @@ export class UserService {
   }
 
   editUser(user: User): Observable<User> {
-    return this.http.put<User>(`${this.apiUrl}/${user.email}`, user);
+    return this.http.put<User>(`${this.apiUrl}/edit`, user);
   }
 
   deleteUser(email: string): Observable<void> {
-    return this.http.delete<void>(`${this.apiUrl}/${email}`);
+    const body = { email };
+    return this.http.delete<void>(`${this.apiUrl}/delete`, { body });
   }
 
   requestPasswordChange(email: string, tempPassword: string): Observable<any> {

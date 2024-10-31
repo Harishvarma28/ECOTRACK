@@ -11,14 +11,14 @@ export class DataFormService {
   constructor(private http: HttpClient) {}
 
   submitRecyclingCollection(data: any): Observable<any> {
-    return this.http.post(`${this.baseUrl}/submit-recycling-collection`, data);
+    return this.http.post(`${this.baseUrl}/recycling-collection`, data);
   }
 
-  submitRevenue(data: any): Observable<any> {
-    return this.http.post(`${this.baseUrl}/submit-revenue`, data);
+  submitRecyclingRevenue(data: any): Observable<any> {
+    return this.http.post(`${this.baseUrl}/recycling-revenue`, data);
   }
 
   submitLandfillExpense(data: any): Observable<any> {
-    return this.http.post(`${this.baseUrl}/submit-landfill-expense`, data);
+    return this.http.post(`${this.baseUrl}/landfill-expense`, data);
   }
 }

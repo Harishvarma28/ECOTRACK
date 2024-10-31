@@ -52,17 +52,15 @@ export class DialogComponent {
     });
 
     this.revenueForm = this.fb.group({
-      salesAmount: [null],
-      revenueDate: [null],
-      saleDate: [null],
-      materialType: [null],
-      revenueAmount: [null],
-      buyer: [null]
-    });
+      saleDate: [null],          // Sale date selection
+      materialType: [null],     // Material type selection
+      revenueAmount: [null],     // Revenue input
+      buyer: [null]             // Buyer input
+  });
 
     this.expenseForm = this.fb.group({
       expenseAmount: [null],
-      expenseType: [null],
+      // expenseType: [null],
       landfillDate: [null],
       weight: [null],
       landfillHauler: [null]
@@ -86,8 +84,28 @@ export class DialogComponent {
       });
     } else if (this.data.formType === 'recyclingRevenue') {
       formData = this.revenueForm.value;
+      this.dataFormService.submitRecyclingRevenue(formData).subscribe({
+        next: (response) => {
+          console.log('Recycling revenue form submitted successfully:', response);
+          this.dialogRef.close(formData); // Optionally close the dialog
+        },
+        error: (error) => {
+          console.error('Error submitting recycling revenue form:', error);
+          // Handle the error accordingly (e.g., show a message to the user)
+        }
+      });
     } else if (this.data.formType === 'landfillExpense') {
       formData = this.expenseForm.value;
+      this.dataFormService.submitLandfillExpense(formData).subscribe({
+        next: (response) => {
+          console.log('LandFill Expenses form submitted successfully:', response);
+          this.dialogRef.close(formData); // Optionally close the dialog
+        },
+        error: (error) => {
+          console.error('Error submitting LandFill Expenses:', error);
+          // Handle the error accordingly (e.g., show a message to the user)
+        }
+      });
     }
 
     console.log(formData);

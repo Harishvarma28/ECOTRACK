@@ -1,5 +1,5 @@
 from flask import Blueprint, request, jsonify
-from app.utils.db_utils import execute_query, fetch_one
+from app.utils.db_utils import execute_query, fetch_one,fetch_all
 from app.utils.email_utils import send_email
 from passlib.context import CryptContext
 import random
@@ -102,3 +102,65 @@ def change_password():
     except Exception as e:
         print("Error in change_password:", str(e))
         return jsonify({"error": "An internal error occurred", "details": str(e)}), 500
+# def fetch_all(query, params=None):
+#     with db_connection.cursor(dictionary=True) as cursor:
+#         cursor.execute(query, params)
+#         result = cursor.fetchall()  # Fetch all rows for SELECT queries
+#         return result
+
+@user_bp.route('/users', methods=['GET'])
+def get_all_users():
+    try:
+        # Fetch all users from the database
+        query = "SELECT * FROM users"
+        users = fetch_all(query)  # Use the fetch_all function
+
+        if users:
+            return jsonify({"users": users}), 200
+        else:
+            return jsonify({"users": []}), 200
+
+    except Exception as e:
+        print("Error in get_all_users:", str(e))
+        return jsonify({"error": "Failed to retrieve users", "details": str(e)}), 500
+
+@user_bp.route('/users/edit', methods=['PUT'])
+def update_user():
+    data = request.get_json()
+    email = data.get('email')
+    name = data.get('name')
+    university = data.get('university')
+    status = data.get('status')
+    role = data.get('role')
+
+    if not email:
+        return jsonify({"error": "Email is required"}), 400
+
+    # Update the user information in the database
+    query = """
+        UPDATE users SET name = %s, university = %s, status = %s, role = %s
+        WHERE email = %s
+    """
+    result = execute_query(query, (name, university, status, role, email))
+
+    if result is not None:
+        return jsonify({"message": "User updated successfully"}), 200
+    else:
+        return jsonify({"error": "Failed to update user"}), 500
+
+@user_bp.route('/users/delete', methods=['DELETE'])
+def delete_user():
+    data = request.get_json()
+    email = data.get('email')
+
+    if not email:
+        return jsonify({"error": "Email is required"}), 400
+
+    # SQL query to delete a user by email
+    query = "DELETE FROM users WHERE email = %s"
+    result = execute_query(query, (email,))
+
+    if result is not None:
+        return jsonify({"message": "User deleted successfully"}), 200
+    else:
+        return jsonify({"error": "Failed to delete user"}), 500

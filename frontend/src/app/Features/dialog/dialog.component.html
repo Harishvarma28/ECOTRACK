@@ -97,43 +97,32 @@
 
   <form [formGroup]="revenueForm" *ngIf="data.formType === 'recyclingRevenue'" class="revenue-form">
     <mat-form-field appearance="outline" class="full-width">
-      <mat-label>Sales Amount (US$)</mat-label>
-      <input matInput placeholder="Enter sales amount" type="number" formControlName="salesAmount">
+        <mat-label>Sale Date</mat-label>
+        <input matInput [matDatepicker]="saleDatePicker" placeholder="Select sale date" formControlName="saleDate">
+        <mat-datepicker-toggle matSuffix [for]="saleDatePicker"></mat-datepicker-toggle>
+        <mat-datepicker #saleDatePicker></mat-datepicker>
     </mat-form-field>
 
     <mat-form-field appearance="outline" class="full-width">
-      <mat-label>Revenue Date</mat-label>
-      <input matInput [matDatepicker]="revenueDatePicker" placeholder="Select revenue date" formControlName="revenueDate">
-      <mat-datepicker-toggle matSuffix [for]="revenueDatePicker"></mat-datepicker-toggle>
-      <mat-datepicker #revenueDatePicker></mat-datepicker>
+        <mat-label>Material Type</mat-label>
+        <mat-select placeholder="Choose material type" formControlName="materialType">
+            <mat-option *ngFor="let material of materialTypes" [value]="material.value">
+                {{ material.label }} ({{ material.weight }})
+            </mat-option>
+        </mat-select>
     </mat-form-field>
 
     <mat-form-field appearance="outline" class="full-width">
-      <mat-label>Sale Date</mat-label>
-      <input matInput [matDatepicker]="saleDatePicker" placeholder="Select sale date" formControlName="saleDate">
-      <mat-datepicker-toggle matSuffix [for]="saleDatePicker"></mat-datepicker-toggle>
-      <mat-datepicker #saleDatePicker></mat-datepicker>
+        <mat-label>Revenue (Amount in US$)</mat-label>
+        <input matInput placeholder="Enter revenue amount" type="number" formControlName="revenueAmount">
     </mat-form-field>
 
     <mat-form-field appearance="outline" class="full-width">
-      <mat-label>Material Type</mat-label>
-      <mat-select placeholder="Choose material type" formControlName="materialType">
-        <mat-option *ngFor="let material of materialTypes" [value]="material.value">
-          {{ material.label }} ({{ material.weight }})
-        </mat-option>
-      </mat-select>
+        <mat-label>Buyer</mat-label>
+        <input matInput placeholder="Enter buyer's company name" formControlName="buyer">
     </mat-form-field>
+</form>
 
-    <mat-form-field appearance="outline" class="full-width">
-      <mat-label>Revenue (Amount in US$)</mat-label>
-      <input matInput placeholder="Enter revenue amount" type="number" formControlName="revenueAmount">
-    </mat-form-field>
-
-    <mat-form-field appearance="outline" class="full-width">
-      <mat-label>Buyer</mat-label>
-      <input matInput placeholder="Enter buyer's company name" formControlName="buyer">
-    </mat-form-field>
-  </form>
 
   <form [formGroup]="expenseForm" *ngIf="data.formType === 'landfillExpense'" class="expense-form">
     <mat-form-field appearance="outline" class="full-width">
@@ -141,10 +130,10 @@
       <input matInput placeholder="Enter expense amount" type="number" formControlName="expenseAmount">
     </mat-form-field>
 
-    <mat-form-field appearance="outline" class="full-width">
+    <!-- <mat-form-field appearance="outline" class="full-width">
       <mat-label>Expense Type</mat-label>
       <input matInput placeholder="Enter type of expense" formControlName="expenseType">
-    </mat-form-field>
+    </mat-form-field> -->
 
     <mat-form-field appearance="outline" class="full-width">
       <mat-label>Landfill Date</mat-label>

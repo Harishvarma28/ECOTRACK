@@ -9,6 +9,8 @@ import { MatDialog } from '@angular/material/dialog';
 })
 export class DashboardComponent {
   constructor(public dialog: MatDialog) {}
+  interval = 3000; // Carousel interval in milliseconds
+  pauseOnHover = true; // Enables pausing carousel on hover
 
 
   images = [

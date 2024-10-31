@@ -39,3 +39,15 @@ def fetch_one(query, params=None):
     finally:
         cursor.close()
         connection.close()
+def fetch_all(query, params=None):
+    connection = get_db_connection()
+    cursor = connection.cursor(dictionary=True)
+    try:
+        cursor.execute(query, params)
+        return cursor.fetchall()  # Fetches all rows for SELECT queries
+    except mysql.connector.Error as e:
+        print(f"Error: {e}")
+        return []
+    finally:
+        cursor.close()
+        connection.close()

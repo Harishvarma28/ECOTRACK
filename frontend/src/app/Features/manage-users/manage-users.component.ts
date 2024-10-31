@@ -31,10 +31,13 @@ export class ManageUsersComponent {
     this.loadUsers(); // Load users on component init
   }
   loadUsers(): void {
-    this.userService.getUsers().subscribe((data: User[]) => {
-      this.users = data; // Update users from the API
+    this.userService.getUsers().subscribe((data: { users: User[] }) => {
+        this.users = data.users; // Correctly access the users array
+    }, error => {
+        console.error('Error fetching users:', error); // Log any errors
     });
-  }
+}
+
 
   openDialog(action: string, user?: User): void {
     const dialogRef = this.dialog.open(UserDialogComponent, {
@@ -45,13 +48,16 @@ export class ManageUsersComponent {
       if (result) {
         if (action === 'add') {
           this.users.push(result); // Add new user to the list
+          this.loadUsers(); 
         } else if (action === 'edit') {
           const index = this.users.findIndex(u => u.name === result.name);
           if (index !== -1) {
             this.users[index] = result; // Update user details
           }
+          this.loadUsers(); 
         } else if (action === 'delete') {
           this.users = this.users.filter(u => u.name !== result.name); // Delete user from the list
+          this.loadUsers(); 
         }
       }
     });

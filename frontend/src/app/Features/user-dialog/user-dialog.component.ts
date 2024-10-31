@@ -50,7 +50,7 @@ export class UserDialogComponent {
         this.dialogRef.close(updatedUser); // Close dialog with updated user data
       });
     } else if (this.data.action === 'delete') {
-      this.userService.deleteUser(this.data.user!.name).subscribe(() => {
+      this.userService.deleteUser(this.data.user!.email).subscribe(() => {
         this.dialogRef.close(this.data.user); // Close dialog with deleted user data
       });
     }

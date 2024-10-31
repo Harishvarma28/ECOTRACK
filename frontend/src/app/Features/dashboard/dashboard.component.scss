@@ -1,53 +1,117 @@
-/* dashboard.component.scss */
+/* Basic Styling */
+.dashboard-container {
+  max-width: 1200px;
+  margin: auto;
+  padding: 20px;
+  animation: fadeIn 1.5s ease-in-out; /* Overall container animation */
+}
 
+.carousel-container {
+  margin-bottom: 40px;
+  text-align: center;
+}
 
-.picsum-img-wrapper {
-    text-align: center;
-    height: 350px;
-  }
-  
-  .picsum-img-wrapper img {
-    height: 100%;
-    width: 80%;
-    border-radius: 6px;
-    border: rgb(45, 230, 217) 3px solid;
-  }
+.carousel-image-wrapper {
+  height: 450px;
+  overflow: hidden;
+  border-radius: 8px;
+  position: relative;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
+  animation: slideIn 1.5s ease-in-out; /* Carousel image slide-in */
+}
 
-  .custom-card {
-    min-height: 200px; /* Ensures all cards are the same height */
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    color: white; /* Makes text stand out on colored backgrounds */
-  }
+.carousel-image-wrapper img {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+  border-radius: 8px;
+  filter: brightness(0.9);
+  transition: transform 0.3s ease;
+}
 
-  ::ng-deep .carousel-control-next-icon 
-  {
-    background-color: grey;
-    border-radius: 50%;
-  }
-  ::ng-deep .carousel-control-prev-icon
-  {
-    background-color: grey;
-    border-radius: 50%;
-  }
+.carousel-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background: rgba(0, 0, 0, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+}
 
-  .custom-card h5 {
-    font-weight: bold;
-  }
+.carousel-caption h3 {
+  color: #fff;
+  font-size: 24px;
+  animation: fadeInUp 1.2s ease-out; /* Caption animation */
+}
 
-  .custom-card .btn {
-    width: 100%; /* Makes the button full-width */
-  }
+::ng-deep .carousel-control-next-icon,
+::ng-deep .carousel-control-prev-icon {
+  background-color: #444;
+  border-radius: 50%;
+}
 
-  .container {
-    max-width: 1200px;
-  }
+/* Card Container Animations */
+.cards-container .card {
+  min-height: 220px;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  perspective: 1000px; /* For 3D rotation effect */
+  animation: scaleUp 0.8s ease-out 0.5s forwards; /* Cards scale up animation */
+}
 
-  /* Responsiveness */
-  @media (max-width: 768px) {
-    .custom-card {
-      min-height: 250px; /* Reduce height on smaller screens */
-    }
+.card-title {
+  font-weight: bold;
+  animation: fadeInUp 1s ease-in-out;
+}
+
+.card .btn {
+  width: 100%;
+  animation: pulse 1.5s infinite; /* Pulsing button */
+}
+
+.card-animate:hover {
+  transform: rotateY(10deg) rotateX(5deg) translateY(-5px); /* 3D hover effect */
+  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.3);
+}
+
+@media (max-width: 768px) {
+  .carousel-image-wrapper {
+    height: 250px;
   }
-  
+  .cards-container .card {
+    min-height: 250px;
+  }
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideIn {
+  from { opacity: 0; transform: translateX(-50px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes scaleUp {
+  0% { transform: scale(0.8); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+}
