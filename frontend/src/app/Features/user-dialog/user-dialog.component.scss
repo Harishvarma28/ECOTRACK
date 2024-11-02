@@ -1,13 +1,24 @@
 /* Style for the form */
+.user-dialogue-div
+{
+  width: 100% !important;
+}
 
 .mat-dialog-content {
     padding: 20px; /* Add padding around dialog content */
-    width: 400px;
+    width: 100% !important;
   }
   
   .form-field {
-    width: 100%; /* Make form fields take the full width */
+    width: 100% !important; /* Make form fields take the full width */
     margin-bottom: 16px; /* Add margin between fields */
+  }
+  // .mat-form-field {
+  //   min-width: 100% !important;
+  // }
+  ::ng-deep .mat-mdc-form-field
+  {
+    width: 100% !important;
   }
 
 .user-form {
@@ -47,4 +58,59 @@
     color: red; /* Style for delete confirmation text */
     text-align: center; /* Center text */
   }
+  .but-div
+  {
+    width: 100%;
+    justify-content: space-between;
+    padding: 3%;
+  }
+  .but-cancel
+  {
+    border: red 1px solid;
+    width: 30%;
+    padding: 2%;
+    color: red !important;
+    font-size: medium;
+    border-radius: 6px;
+  }
+  .but-confirm
+  {
+    border: green 1px solid;
+    width: 30%;
+    padding: 2%;
+    color: green !important;
+    background-color: white !important;
+    font-size: medium;
+    border-radius: 6px;
+  }
   
+  
+
+  /* Fade-in animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Fade-out animation */
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+    transform: scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+}
+
+/* Apply animation on dialog entry and exit */
+.mat-dialog-container {
+  animation: fadeIn 300ms ease-out, fadeOut 200ms ease-in;
+}

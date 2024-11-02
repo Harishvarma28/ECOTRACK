@@ -6,6 +6,7 @@
     background-color: #f9f9f9;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
   }
   
   .full-width {
@@ -64,5 +65,34 @@
     font-size: 1.5em;
     color: #4caf50;
   }
-  
-  
+  .button-div
+  {
+    width: 85%;
+    margin-left: 5%;
+    padding: 2%;
+    justify-content: space-between;
+    margin-bottom: 2%;
+  }
+  .button-cancel
+  {
+    border: red 1px solid;
+    width: 30%;
+    padding: 2%;
+    color: red !important;
+    font-size: medium;
+    border-radius: 6px;
+  }
+  .button-save
+  {
+    border: green 1px solid;
+    width: 30%;
+    padding: 2%;
+    color: green !important;
+    background-color: white !important;
+    font-size: medium;
+    border-radius: 6px;
+  }
+/* Disable active state background */
+.mat-mdc-button .mat-mdc-button-touch-target {
+  background-color: transparent !important;
+}

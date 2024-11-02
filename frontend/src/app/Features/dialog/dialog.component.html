@@ -154,7 +154,7 @@
   </form>
 </div>
 
-<div mat-dialog-actions>
-  <button mat-button (click)="onClose()">Cancel</button>
-  <button mat-button cdkFocusInitial (click)="save()">Save</button>
+<div mat-dialog-actions class="button-div">
+  <button mat-button (click)="onClose()" class="button-cancel">Cancel</button>
+  <button mat-button cdkFocusInitial (click)="save()" class="button-save" cdkFocusInitial disableRipple="true">Save</button>
 </div>

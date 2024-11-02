@@ -1,7 +1,7 @@
 <h2 mat-dialog-title>
   {{ data.action === 'add' ? 'Add User' : data.action === 'edit' ? 'Edit User' : 'Delete User' }}
 </h2>
-<mat-dialog-content>
+<mat-dialog-content class="user-dialogue-div">
   <ng-container *ngIf="data.action === 'add' || data.action === 'edit'">
     <form [formGroup]="userForm" class="user-form">
       <div class="form-field">
@@ -47,7 +47,7 @@
     <p>Are you sure you want to delete {{ data.user?.name }}?</p>
   </ng-container>
 </mat-dialog-content>
-<mat-dialog-actions>
-  <button mat-button (click)="close()">Cancel</button>
-  <button mat-button (click)="confirm()" [disabled]="userForm.invalid">Confirm</button>
+<mat-dialog-actions class="but-div">
+  <button mat-button (click)="close()" class="but-cancel">Cancel</button>
+  <button mat-button (click)="confirm()" [disabled]="userForm.invalid" class="but-confirm">Confirm</button>
 </mat-dialog-actions>

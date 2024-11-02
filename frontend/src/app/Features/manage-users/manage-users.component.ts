@@ -41,6 +41,9 @@ export class ManageUsersComponent {
 
   openDialog(action: string, user?: User): void {
     const dialogRef = this.dialog.open(UserDialogComponent, {
+      width: '500px', // Increase dialog width
+      enterAnimationDuration: '300ms', // Animation duration for entry
+      exitAnimationDuration: '200ms', // Animation duration for exit
       data: { action, user: user ? { ...user } : { name: '', contact: '', university: '', status: 'Active' } }
     });
 
