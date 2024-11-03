@@ -2,6 +2,7 @@ import { Component, Inject,NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/cor
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { DataFormService } from '../services/data-form.service';
+import { AuthService } from '../../auth/auth.service';
 
 
 @Component({
@@ -34,10 +35,13 @@ export class DialogComponent {
     public dialogRef: MatDialogRef<DialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private fb: FormBuilder,
-    private dataFormService: DataFormService
+    private dataFormService: DataFormService,
+    private authService:AuthService
   ) {
+    const userId = this.authService.getuserid();
     // Initialize forms directly in the constructor
     this.recyclingForm = this.fb.group({
+      userId: [userId],
       collectionDate: [null],
       foodWasteWeight: [null],
       aluminumWeight: [null],
@@ -52,6 +56,7 @@ export class DialogComponent {
     });
 
     this.revenueForm = this.fb.group({
+      userId: [userId],
       saleDate: [null],          // Sale date selection
       materialType: [null],     // Material type selection
       revenueAmount: [null],     // Revenue input
@@ -59,6 +64,7 @@ export class DialogComponent {
   });
 
     this.expenseForm = this.fb.group({
+      userId: [userId],
       expenseAmount: [null],
       // expenseType: [null],
       landfillDate: [null],

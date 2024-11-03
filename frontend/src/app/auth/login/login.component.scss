@@ -1,44 +1,122 @@
-.container {
-    max-width: 400px;
-    margin: 50px auto;
-    padding: 20px;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    background-color: #f9f9f9;
+/* Container styles */
+.login-container {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: linear-gradient(135deg, #7cecb6, #71f0bb);
+  overflow: hidden; /* Prevents overflow from animations */
+
+  .overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: 1;
+      animation: fadeIn 1s ease-in-out;
   }
-  
-  h2 {
-    text-align: center;
+
+  .login-form {
+      position: relative;
+      z-index: 2;
+      padding: 40px;
+      border-radius: 8px;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+      background: #fff;
+      animation: slideIn 0.5s ease-in-out;
+
+      h2 {
+          text-align: center;
+          margin-bottom: 20px;
+          color: #333;
+      }
+
+      .form-group {
+          margin-bottom: 20px;
+          transition: transform 0.2s ease;
+
+          &:hover {
+              transform: scale(1.02); /* Slight scale on hover */
+          }
+
+          label {
+              display: block;
+              margin-bottom: 5px;
+              color: #555;
+              transition: color 0.3s ease;
+          }
+
+          .form-control {
+              width: 100%;
+              padding: 10px;
+              border: 1px solid #ccc;
+              border-radius: 4px;
+              transition: border 0.3s ease, box-shadow 0.3s ease;
+
+              &:focus {
+                  border-color: #2575fc;
+                  box-shadow: 0 0 5px rgba(37, 117, 252, 0.5); /* Shadow effect on focus */
+                  outline: none; /* Remove outline */
+              }
+          }
+      }
+
+      .btn {
+          width: 100%;
+          padding: 10px;
+          background-color: #2575fc;
+          color: white;
+          border: none;
+          border-radius: 4px;
+          cursor: pointer;
+          font-size: 16px;
+          transition: background-color 0.3s ease, transform 0.2s ease; /* Add transition for hover effect */
+
+          &:hover {
+              background-color: #1c5bb8; /* Darker blue on hover */
+              transform: translateY(-2px); /* Lift effect on hover */
+          }
+      }
+
+      .register-link {
+          text-align: center;
+          margin-top: 15px;
+          font-size: 14px;
+          color: #555;
+
+          a {
+              color: #2575fc;
+              text-decoration: none;
+              transition: color 0.3s ease;
+
+              &:hover {
+                  color: #1c5bb8; /* Darker blue on hover */
+              }
+          }
+      }
   }
-  
-  .form-group {
-    margin-bottom: 15px;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+      opacity: 0;
   }
-  
-  .form-control {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
+  to {
+      opacity: 1;
   }
-  
-  .btn {
-    width: 100%;
-    padding: 10px;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-  
-    &:hover {
-      background-color: #0056b3;
-    }
+}
+
+@keyframes slideIn {
+  from {
+      transform: translateY(-30px);
+      opacity: 0;
   }
-  
-  .register-link {
-    text-align: center;
-    margin-top: 10px;
+  to {
+      transform: translateY(0);
+      opacity: 1;
   }
-  
+}

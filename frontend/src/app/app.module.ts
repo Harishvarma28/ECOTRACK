@@ -1,8 +1,9 @@
 // src/app/app.module.ts
 import { NgModule } from '@angular/core';
 import { BrowserModule, provideClientHydration } from '@angular/platform-browser';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule,provideHttpClient, withFetch } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';  // Import FormsModule
+import { AuthModule } from './auth/auth.module';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -11,6 +12,10 @@ import { NavComponent } from './shared/nav/nav.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 // import { DialogComponent } from './Features/dialog/dialog.component';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async'; // NavComponent can stay in AppModule
+import { AuthService } from './auth/auth.service';
+import { AuthInterceptor } from './auth/auth.interceptor';
+import { LoaderInterceptor } from './auth/loader.interceptor';
+import { DashboardModule } from './Features/dashboard.module';
 
 // import { MatFormFieldModule } from '@angular/material/form-field';
 // import { MatInputModule } from '@angular/material/input';
@@ -27,15 +32,17 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
+    AuthModule,
+    DashboardModule,
     HttpClientModule,
     NgbModule,
+    AuthModule 
   
   
   ],
-  providers: [
-    provideClientHydration(),
-    provideAnimationsAsync()
-  ],
+  providers: [AuthService,{ provide:HTTP_INTERCEPTORS,useClass: AuthInterceptor,multi:true}, {provide: HTTP_INTERCEPTORS,
+    useClass: LoaderInterceptor,
+    multi: true,}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

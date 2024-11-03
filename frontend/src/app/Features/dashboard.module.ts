@@ -19,13 +19,21 @@ import { MatTableModule } from '@angular/material/table';
 import { MatIconModule } from '@angular/material/icon';
 import { UserDialogComponent } from './user-dialog/user-dialog.component';
 import { ReactiveFormsModule } from '@angular/forms';
-
+import { AuthModule } from '../auth/auth.module';
+import { AuthService } from '../auth/auth.service';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { AuthInterceptor } from '../auth/auth.interceptor';
+import { LoaderInterceptor } from '../auth/loader.interceptor';
+import { LoaderComponent } from './loader/loader.component';
+import { ReportsComponent } from './reports/reports.component';
 @NgModule({
   declarations: [
     DashboardComponent,
     DialogComponent,
     ManageUsersComponent,
-    UserDialogComponent  // Add the DialogComponent here
+    UserDialogComponent,
+    LoaderComponent,
+    ReportsComponent  // Add the DialogComponent here
   ],
   imports: [
     CommonModule,
@@ -42,12 +50,16 @@ import { ReactiveFormsModule } from '@angular/forms';
     MatNativeDateModule,
     MatTableModule,
     MatIconModule,
-    ReactiveFormsModule 
+    ReactiveFormsModule,
+    AuthModule ,
+
   ],
   exports: [
     DashboardComponent,
     ManageUsersComponent,
-    UserDialogComponent
-  ]
+    UserDialogComponent,
+    LoaderComponent
+  ],
+
 })
 export class DashboardModule { }

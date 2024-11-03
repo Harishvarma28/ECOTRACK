@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { AuthService } from '../../auth/auth.service';
 
 @Component({
   selector: 'app-nav',
@@ -9,15 +10,21 @@ import { Router } from '@angular/router';
 export class NavComponent {
   showLogoutButton = true; // By default, the logout button is shown
   isDropdownOpen = false;
+  public username!: string;
+  public role!:string
 
-  constructor(private router: Router) {}
+  constructor(private router: Router,private authservice:AuthService) {}
 
   ngOnInit(): void {
     // Check the current route and hide the logout button if on login/signup
+    this.username = this.authservice.getUsername(); 
+    this.role=this.authservice.getrole();
     this.router.events.subscribe(() => {
       const currentUrl = this.router.url;
       this.showLogoutButton = !(currentUrl.includes('login') || currentUrl.includes('signup'));
     });
+    console.log("user name",this.username)
+    
   }
 
   logout() {

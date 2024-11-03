@@ -1,19 +1,52 @@
 # app.py
-from flask import Flask
+from flask import Flask, jsonify, request
 from app.routes.user_routes import user_bp
-from app.routes.recycling_collection_router import recycling_bp  # Import the new recycling blueprint
+from app.routes.recycling_collection_router import recycling_bp  # Register the recycling collection blueprint
 from flask_cors import CORS
+import jwt
+import datetime
+import os
+from dotenv import load_dotenv
+
+# Load environment variables
+load_dotenv()
 
 app = Flask(__name__)
-CORS(app)
+CORS(app, resources={r"/*": {"origins": "*"}})
+app.config['SECRET_KEY'] = os.getenv('SECRET_KEY')   # Replace with a secure key
+
+# Middleware for token verification
+@app.before_request
+def check_token():
+    if request.method == 'OPTIONS':
+        return
+    
+    exempt_routes = ['user.login']
+    if request.endpoint in exempt_routes:
+        return
+
+    token = request.headers.get('Authorization')
+    if not token or not token.startswith("Bearer "):
+        return jsonify({'error': 'Authorization token missing or malformed'}), 401
+
+    token = token.split(" ")[1]
+
+    try:
+        jwt.decode(token, app.config['SECRET_KEY'], algorithms=['HS256'])
+    except jwt.ExpiredSignatureError:
+        return jsonify({'error': 'Token expired'}), 401
+    except jwt.InvalidTokenError as e:
+        print(f"Invalid token error: {str(e)}")  # Log the error for debugging
+        return jsonify({'error': 'Invalid token'}), 401
+
+
 
 # Register Blueprints
 app.register_blueprint(user_bp)
-app.register_blueprint(recycling_bp)  # Register the recycling collection blueprint
+app.register_blueprint(recycling_bp)
 
 if __name__ == '__main__':
     app.run(debug=True)
-
 
 
 # -- Table for Recycling Collection

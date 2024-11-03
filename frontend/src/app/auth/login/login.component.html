@@ -1,5 +1,6 @@
-<div class="container">
-    <form class="login-form" (ngSubmit)="onSubmit()">
+<div class="login-container">
+    <div class="overlay"></div>
+    <form class="login-form" (ngSubmit)="onSubmit()" @fadeIn>
         <h2>Login</h2>
         <div class="form-group">
             <label for="email">Email</label>
@@ -10,7 +11,6 @@
             <input type="password" id="password" class="form-control" [(ngModel)]="password" name="password" placeholder="Enter your password" required>
         </div>
         <button type="submit" class="btn btn-primary">Login</button>
-        <p class="register-link">Don't have an account? <a routerLink="/auth/signup">Sign up</a></p>
+        <p class="register-link">Forgot your password? <a routerLink="/auth/changepassword">Change Password</a></p>
     </form>
-  </div>
-  
+</div>

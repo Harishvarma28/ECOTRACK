@@ -3,6 +3,16 @@ from app.utils.db_utils import execute_query, fetch_one,fetch_all
 from app.utils.email_utils import send_email
 from passlib.context import CryptContext
 import random
+import jwt
+import os
+from dotenv import load_dotenv
+from app.utils.token_utils import create_token
+
+
+
+
+# Load environment variables
+load_dotenv()
 
 # Create the user blueprint
 user_bp = Blueprint('user', __name__)
@@ -54,21 +64,46 @@ def add_user():
 @user_bp.route('/login', methods=['POST'])
 def login():
     data = request.get_json()
+    
     email = data.get('email')
     password = data.get('password')
 
-    if not email or not password:
-        return jsonify({"error": "Email and password are required"}), 400
-
-    # Fetch user from database
+    print(f"Login attempt for email: {email}")  # Debug print
     user = fetch_one("SELECT * FROM users WHERE email = %s", (email,))
+    
     if user:
+        print(f"User found: {user['email']}")  # Debug print
         if pwd_context.verify(password, user['password']):
-            return jsonify({"message": "Login successful", "user": user}), 200
+            access_token = create_token(user['email'], expires_in=15)
+            refresh_token = create_token(user['email'], expires_in=1440)
+            username = user['name']  # Replace with actual username field
+            role = user['role']  # Replace with actual role field
+            user_id = user['id']
+            return jsonify({'access_token': access_token, 'refresh_token': refresh_token,'role':role,'username':username,'userid':user_id}), 200
         else:
+            print("Invalid password")  # Debug print
             return jsonify({"error": "Invalid credentials"}), 401
     else:
-        return jsonify({"error": "User not found"}), 404
+        print("User not found")  # Debug print
+        return jsonify({"error": "Invalid credentials"}), 401
+
+
+
+@user_bp.route('/refresh', methods=['POST'])
+def refresh_token():
+    refresh_token = request.headers.get('Authorization')  # Expecting the token in the Authorization header
+    if not refresh_token:
+        return jsonify({'error': 'Authorization token missing'}), 401  # Handle missing token
+
+    try:
+        decoded = jwt.decode(refresh_token, os.getenv('SECRET_KEY'), algorithms=['HS256'])
+        new_access_token = create_token(decoded['data'], expires_in=15)
+        return jsonify({'access_token': new_access_token}), 200
+    except jwt.ExpiredSignatureError:
+        return jsonify({'error': 'Refresh token expired, please log in again'}), 401
+    except jwt.InvalidTokenError:
+        return jsonify({'error': 'Invalid refresh token'}), 401
+
 
 @user_bp.route('/change-password', methods=['POST'])
 def change_password():

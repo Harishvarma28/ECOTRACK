@@ -1,3 +1,4 @@
-<app-nav/>
+<app-nav *ngIf="this.currenturl!='/' && this.currenturl!='/auth/login' && this.currenturl!='/auth/changepassword'"></app-nav>
+<app-loader></app-loader>
 <router-outlet class="body"></router-outlet>
 

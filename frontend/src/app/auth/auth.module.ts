@@ -9,13 +9,17 @@ import { ChangepasswordComponent } from './changepassword/changepassword.compone
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
+import {HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { AuthService } from './auth.service';
+import { AuthInterceptor } from './auth.interceptor';
+import { LoaderInterceptor } from './loader.interceptor';
 
 
 @NgModule({
   declarations: [
     LoginComponent,
     SignupComponent,
-    ChangepasswordComponent
+    ChangepasswordComponent,
   ],
   imports: [
     CommonModule,
@@ -25,11 +29,25 @@ import { MatButtonModule } from '@angular/material/button';
     MatFormFieldModule,
     MatInputModule,
     MatButtonModule,
+    HttpClientModule
+ 
   ],
   exports:[
     LoginComponent,
     SignupComponent,
     ChangepasswordComponent
-  ]
+  ],
+  providers: [AuthService,
+    {provide: HTTP_INTERCEPTORS,
+    useClass: AuthInterceptor,
+    multi: true,},
+    {provide: HTTP_INTERCEPTORS,
+      useClass: LoaderInterceptor,
+      multi: true,}]
+  // providers: [
+  //   AuthService,{ provide:HTTP_INTERCEPTORS,useClass: AuthInterceptor,multi:true}, {provide: HTTP_INTERCEPTORS,
+  //     useClass: LoaderInterceptor,
+  //     multi: true,}
+  // ]
 })
 export class AuthModule { }

@@ -3,31 +3,41 @@
     <img src="assets/logo-n.svg" alt="Logo" class="logo" />
     <span class="brand-name">SUSTAINABILITY</span>
   </div>
+  
   <div class="navbar-links">
     <a routerLink="/dashboard" class="navbar-item">Dashboard</a>
-    <a routerLink="/dashboard/manage-users" class="navbar-item">Manage Users</a>
+
+    <!-- Display Manage Users link only if the role is 'admin' -->
+    <a *ngIf="role === 'Admin'" routerLink="/dashboard/manage-users" class="navbar-item">Manage Users</a>
+
+    <!-- Display Reports link only if the role is 'admin' -->
+    <a *ngIf="role === 'Admin'" routerLink="/dashboard/reports" class="navbar-item">Reports</a>
+
     <a routerLink="/dashboard" class="navbar-item">Settings</a>
     <a routerLink="/dashboard" class="navbar-item">Help</a>
   </div>
+
   <div class="navbar-actions">
     <div class="user-dropdown" (click)="toggleDropdown()">
-      <span class="user-name">John Doe</span> <!-- Dummy name -->
+      <span class="user-name">{{ username }}</span>
       <img src="assets/NavBarIcons/chevron-down.png" alt="Chevron" class="chevron-icon" />
     </div>
+    
     <div class="dropdown-menu" *ngIf="isDropdownOpen">
       <div class="dropdown-item user-role">
-        <img src="assets/NavBarIcons/people.png" alt="role Icon" class="icon" />
-        Admin <!-- Dummy role -->
+        <img src="assets/NavBarIcons/people.png" alt="Role Icon" class="icon" />
+        {{ role }}
       </div>
+      
       <a routerLink="/settings" class="dropdown-item">
         <img src="assets/NavBarIcons/settings.png" alt="Settings Icon" class="icon" />
         Settings
       </a>
+      
       <button (click)="logout()" class="dropdown-item logout">
         <img src="assets/NavBarIcons/turn-off.png" alt="Logout Icon" class="icon logout-icon" />
         Logout
       </button>
     </div>
   </div>
-  
 </nav>

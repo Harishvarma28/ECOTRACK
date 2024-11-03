@@ -10,7 +10,7 @@ recycling_bp = Blueprint('recycling', __name__)
 def recycling_collection():
     data = request.get_json()
         # Set a default user_id of 2
-    user_id = 2
+    user_id = data.get('userId') 
     # Check if 'collectionDate' is provided and valid
     collection_date = data.get('collectionDate')
     if collection_date:
@@ -55,7 +55,7 @@ def recycling_collection():
 @recycling_bp.route('/recycling-revenue', methods=['POST'])
 def recycling_revenue():
     data = request.get_json()
-    user_id = 2  # Set user ID; adjust as needed
+    user_id = data.get('userId')   # Set user ID; adjust as needed
 
     # Extracting values from the incoming JSON data
     sale_date = data.get('saleDate')            # Sale Date
@@ -91,7 +91,7 @@ def recycling_revenue():
 @recycling_bp.route('/landfill-expense', methods=['POST'])
 def landfill_expense():
     data = request.get_json()
-    user_id = 2  # Set user ID; adjust as needed
+    user_id = data.get('userId') # Set user ID; adjust as needed
 
     # Extracting values from the incoming JSON data
     landfill_date = data.get('landfillDate')  # Landfill Date
