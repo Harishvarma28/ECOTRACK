@@ -2,6 +2,8 @@ import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { UserService } from '../services/user.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ToastService } from '../services/toast.service';
+
 
 interface User {
   name: string;
@@ -23,7 +25,8 @@ export class UserDialogComponent {
     public dialogRef: MatDialogRef<UserDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: { action: string; user?: User },
     private userService: UserService,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private toastr: ToastService
   ) {
     this.userForm = this.fb.group({
       name: [data.user?.name || '', [Validators.required]],
@@ -41,18 +44,38 @@ export class UserDialogComponent {
   confirm(): void {
     const userData = this.userForm.value; // Retrieve form data
 
+    // Perform action based on the action type (add, edit, delete)
     if (this.data.action === 'add') {
-      this.userService.addUser(userData).subscribe(newUser => {
-        this.dialogRef.close(newUser); // Close dialog with new user data
-      });
+      if (this.userForm.valid) {
+        this.userService.addUser(userData).subscribe(newUser => {
+          this.toastr.success('User added successfully!');  // Success Toast
+          this.dialogRef.close(newUser); // Close dialog with new user data
+        }, error => {
+          this.toastr.error('Error adding user: ' + error.message);  // Error Toast
+        });
+      } else {
+        this.userForm.markAllAsTouched(); // Trigger form validation
+      }
     } else if (this.data.action === 'edit') {
-      this.userService.editUser(userData).subscribe(updatedUser => {
-        this.dialogRef.close(updatedUser); // Close dialog with updated user data
-      });
+      if (this.userForm.valid) {
+        this.userService.editUser(userData).subscribe(updatedUser => {
+          this.toastr.success('User updated successfully!');  // Success Toast
+          this.dialogRef.close(updatedUser); // Close dialog with updated user data
+        }, error => {
+          this.toastr.error('Error updating user: ' + error.message);  // Error Toast
+        });
+      } else {
+        this.userForm.markAllAsTouched(); // Trigger form validation
+      }
     } else if (this.data.action === 'delete') {
-      this.userService.deleteUser(this.data.user!.email).subscribe(() => {
-        this.dialogRef.close(this.data.user); // Close dialog with deleted user data
-      });
+      if (confirm('Are you sure you want to delete this user?')) {
+        this.userService.deleteUser(this.data.user!.email).subscribe(() => {
+          this.toastr.success('User deleted successfully!');  // Success Toast
+          this.dialogRef.close(this.data.user); // Close dialog with deleted user data
+        }, error => {
+          this.toastr.error('Error deleting user: ' + error.message);  // Error Toast
+        });
+      }
     }
   }
 }

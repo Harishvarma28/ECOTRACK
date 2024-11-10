@@ -20,7 +20,7 @@ export class AuthGuard implements CanActivate {
       return true;
     } else {
       // If not logged in, redirect to login page
-      return this.router.createUrlTree(['/auth/login']);
+      return this.router.createUrlTree(['/dashboard/homepage']);
     }
   }
 }

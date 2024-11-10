@@ -3,6 +3,7 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable, BehaviorSubject, throwError } from 'rxjs';
 import { tap, catchError } from 'rxjs/operators';
 import { Router } from '@angular/router';
+import { ToastService } from '../Features/services/toast.service';
 
 @Injectable({
   providedIn: 'root'
@@ -17,7 +18,7 @@ export class AuthService {
   public userid:any
   private isAuthenticated: boolean = false;
 
-  constructor(private http: HttpClient, private router: Router) {}
+  constructor(private http: HttpClient, private router: Router, private toastService: ToastService ) {}
 
   login(email: string, password: string): Observable<any> {
     return this.http.post<any>(`${this.apiUrl}/login`, { email, password }).pipe(
@@ -34,7 +35,17 @@ export class AuthService {
         localStorage.setItem('role', this.role);
         localStorage.setItem('userid',this.userid)
         this.userSubject.next({ ...response.user, username: this.username }); // Update the user state with username
+        if(response.status==="New User") {
+          // Redirect to change password page for new users
+          this.router.navigate(['/auth/changepassword']);
+          this.toastService.info('Please change your password to proceed.');
+        }
+        else{
         this.router.navigate(['/dashboard']);
+        
+        this.toastService.success('Login successful! Welcome to your dashboard.');
+        }
+        console.log("check stauts",response.status)
       }),
       catchError(this.handleError) // Handle errors
     );
@@ -49,6 +60,7 @@ export class AuthService {
     localStorage.removeItem('refresh_token'); // Clear refresh token on logout
     this.userSubject.next(null); // Clear user state
     this.router.navigate(['/auth/login']);
+    this.toastService.info('You have been logged out successfully.');
   }
 
   getAccessToken(): string | null {
@@ -82,7 +94,13 @@ export class AuthService {
 
   changePassword(email: string, newPassword: string, confirmPassword: string): Observable<any> {
     return this.http.post(`${this.apiUrl}/change-password`, { email, new_password: newPassword, confirm_password: confirmPassword }).pipe(
-      catchError(this.handleError) // Handle errors
+      tap((response) => {
+        this.toastService.success('Password changed successfully! Please log in with your new password.'); // Success toast
+      }),
+      catchError((error) => {
+        this.handleError(error); // Call handleError to display error messages
+        return throwError(error);
+      })
     );
   }
 

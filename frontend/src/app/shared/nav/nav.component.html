@@ -5,17 +5,31 @@
   </div>
   
   <div class="navbar-links">
-    <a routerLink="/dashboard" class="navbar-item">Dashboard</a>
+    <a routerLink="/dashboard" class="navbar-item" 
+       routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+       Dashboard
+    </a>
 
     <!-- Display Manage Users link only if the role is 'admin' -->
-    <a *ngIf="role === 'Admin'" routerLink="/dashboard/manage-users" class="navbar-item">Manage Users</a>
+    <a *ngIf="role === 'Admin'" routerLink="/dashboard/manage-users" 
+       class="navbar-item" routerLinkActive="active" 
+       [routerLinkActiveOptions]="{ exact: true }">
+       Manage Users
+    </a>
 
     <!-- Display Reports link only if the role is 'admin' -->
-    <a *ngIf="role === 'Admin'" routerLink="/dashboard/reports" class="navbar-item">Reports</a>
+    <a *ngIf="role === 'Admin'" routerLink="/dashboard/reports" 
+       class="navbar-item" routerLinkActive="active" 
+       [routerLinkActiveOptions]="{ exact: true }">
+       Reports
+    </a>
 
-    <a routerLink="/dashboard" class="navbar-item">Settings</a>
-    <a routerLink="/dashboard" class="navbar-item">Help</a>
-  </div>
+    <a routerLink="/dashboard/About-Us" class="navbar-item" 
+       routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+       About Us
+    </a>
+</div>
+
 
   <div class="navbar-actions">
     <div class="user-dropdown" (click)="toggleDropdown()">
@@ -29,9 +43,9 @@
         {{ role }}
       </div>
       
-      <a routerLink="/settings" class="dropdown-item">
-        <img src="assets/NavBarIcons/settings.png" alt="Settings Icon" class="icon" />
-        Settings
+      <a routerLink="dashboard/helppage" class="dropdown-item">
+        <img src="assets/NavBarIcons/help.png" alt="Settings Icon" class="icon" />
+       Help
       </a>
       
       <button (click)="logout()" class="dropdown-item logout">

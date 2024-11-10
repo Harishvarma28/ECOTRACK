@@ -70,17 +70,24 @@ def recycling_revenue():
     
     material_type = data.get('materialType')    # Material Type
     revenue_amount = data.get('revenueAmount')  # Revenue Amount
-    buyer = data.get('buyer')                    # Buyer
+    buyer = data.get('buyer')
+    weight = data.get('weight')                 # Weight
+
+    # Validate weight to ensure it is not negative
+    if weight is None:
+        return jsonify({"error": "'weight' is required"}), 400
+    if weight < 0:
+        return jsonify({"error": "'weight' cannot be negative"}), 400                    # Buyer
     
 
     # Insert data into `recycling_revenue` table
     query = """
         INSERT INTO recycling_revenue (
-            user_id, sale_date, material_type, revenue_amount, buyer
+            user_id, sale_date, material_type, revenue_amount, buyer,weight
         )
-        VALUES (%s, %s, %s, %s, %s)
+        VALUES (%s, %s, %s, %s, %s, %s)
     """
-    params = (user_id, sale_date, material_type, revenue_amount, buyer)
+    params = (user_id, sale_date, material_type, revenue_amount, buyer,weight)
     
     result = execute_query(query, params)  # Execute the query with parameters
     if result:

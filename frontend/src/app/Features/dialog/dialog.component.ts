@@ -1,8 +1,10 @@
 import { Component, Inject,NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { DataFormService } from '../services/data-form.service';
 import { AuthService } from '../../auth/auth.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { ToastService } from '../services/toast.service';
 
 
 @Component({
@@ -36,22 +38,24 @@ export class DialogComponent {
     @Inject(MAT_DIALOG_DATA) public data: any,
     private fb: FormBuilder,
     private dataFormService: DataFormService,
-    private authService:AuthService
+    private authService:AuthService,
+    private snackBar: MatSnackBar,
+    private toasterService: ToastService
   ) {
     const userId = this.authService.getuserid();
     // Initialize forms directly in the constructor
     this.recyclingForm = this.fb.group({
       userId: [userId],
-      collectionDate: [null],
-      foodWasteWeight: [null],
-      aluminumWeight: [null],
-      cardboardWeight: [null],
-      glassWeight: [null],
-      metalWeight: [null],
+      collectionDate: [null, Validators.required],
+      foodWasteWeight: [0, [Validators.required, Validators.min(0)]],
+      aluminumWeight:[0, [Validators.required, Validators.min(0)]],
+      cardboardWeight: [0, [Validators.required, Validators.min(0)]],
+      glassWeight: [0, [Validators.required, Validators.min(0)]],
+      metalWeight: [0, [Validators.required, Validators.min(0)]],
       metalSubcategory: [null],
-      paperWeight: [null],
+      paperWeight: [0, [Validators.required, Validators.min(0)]],
       paperSubcategory: [null],
-      plasticWeight: [null],
+      plasticWeight: [0, [Validators.required, Validators.min(0)]],
       plasticSubcategory: [null]
     });
 
@@ -60,7 +64,8 @@ export class DialogComponent {
       saleDate: [null],          // Sale date selection
       materialType: [null],     // Material type selection
       revenueAmount: [null],     // Revenue input
-      buyer: [null]             // Buyer input
+      buyer: [null],             // Buyer input
+      weight: [0, [Validators.required, Validators.min(0)]]
   });
 
     this.expenseForm = this.fb.group({
@@ -68,34 +73,64 @@ export class DialogComponent {
       expenseAmount: [null],
       // expenseType: [null],
       landfillDate: [null],
-      weight: [null],
+      weight: [0, [Validators.required, Validators.min(0)]],
       landfillHauler: [null]
     });
   }
 
   save() {
     let formData: any;
+    const formData1 = this.recyclingForm.value;
+
+    // Check if subcategory fields require weight input
+    const missingFields = [];
+    console.log("form1data",formData1)
+    if (formData1.metalSubcategory && !formData1.metalWeight) {
+      missingFields.push('Metal Weight');
+  }
+  if (formData1.paperSubcategory && !formData1.paperWeight) {
+      missingFields.push('Paper Weight');
+  }
+  if (formData1.plasticSubcategory && !formData1.plasticWeight) {
+      missingFields.push('Plastic Weight');
+  }
+
+  // New validation: check if weight is provided without a subcategory
+  if (formData1.metalWeight && !formData1.metalSubcategory) {
+      missingFields.push('Metal Subcategory');
+  }
+  if (formData1.paperWeight && !formData1.paperSubcategory) {
+      missingFields.push('Paper Subcategory');
+  }
+  if (formData1.plasticWeight && !formData1.plasticSubcategory) {
+      missingFields.push('Plastic Subcategory');
+  }
+  if (missingFields.length > 0) {
+    this.toasterService.error(`Please complete the following fields: ${missingFields.join(', ')}`);
+    return;
+  }
 
     if (this.data.formType === 'recyclingCollection') {
       formData = this.recyclingForm.value;
       this.dataFormService.submitRecyclingCollection(formData).subscribe({
         next: (response) => {
-          console.log('Recycling collection submitted successfully:', response);
+          this.toasterService.success('Recycling collection submitted successfully!');
           this.dialogRef.close(formData); // Optionally close the dialog
         },
         error: (error) => {
+          this.toasterService.error(error);
           console.error('Error submitting recycling collection:', error);
-          // Handle the error accordingly (e.g., show a message to the user)
         }
       });
     } else if (this.data.formType === 'recyclingRevenue') {
       formData = this.revenueForm.value;
       this.dataFormService.submitRecyclingRevenue(formData).subscribe({
         next: (response) => {
-          console.log('Recycling revenue form submitted successfully:', response);
+          this.toasterService.success('Recycling revenue form submitted successfully!');
           this.dialogRef.close(formData); // Optionally close the dialog
         },
         error: (error) => {
+          this.toasterService.error(error);
           console.error('Error submitting recycling revenue form:', error);
           // Handle the error accordingly (e.g., show a message to the user)
         }
@@ -104,11 +139,12 @@ export class DialogComponent {
       formData = this.expenseForm.value;
       this.dataFormService.submitLandfillExpense(formData).subscribe({
         next: (response) => {
-          console.log('LandFill Expenses form submitted successfully:', response);
+          this.toasterService.success('LandFill Expenses form submitted successfully!');
           this.dialogRef.close(formData); // Optionally close the dialog
         },
         error: (error) => {
-          console.error('Error submitting LandFill Expenses:', error);
+          this.toasterService.error(error);
+          console.error('Error submitting LandFill Expenses:', error.error);
           // Handle the error accordingly (e.g., show a message to the user)
         }
       });

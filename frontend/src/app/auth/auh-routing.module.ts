@@ -4,11 +4,14 @@ import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './login/login.component';
 import { SignupComponent } from './signup/signup.component';
 import { ChangepasswordComponent } from './changepassword/changepassword.component';
+import { HomePageComponent } from '../Features/home-page/home-page.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'signup', component: SignupComponent },
-  {path:'changepassword',component:ChangepasswordComponent}
+  {path:'changepassword',component:ChangepasswordComponent},
+  // { path: '', component: HomePageComponent },
+  
 ];
 
 @NgModule({

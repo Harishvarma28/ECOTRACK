@@ -5,7 +5,7 @@
     <div class="form-container">
       <mat-form-field appearance="outline" class="full-width">
         <mat-label>Collection Date</mat-label>
-        <input matInput [matDatepicker]="collectionDatePicker" placeholder="Select collection date" formControlName="collectionDate">
+        <input matInput [matDatepicker]="collectionDatePicker" placeholder="Select collection date" formControlName="collectionDate" >
         <mat-datepicker-toggle matSuffix [for]="collectionDatePicker"></mat-datepicker-toggle>
         <mat-datepicker #collectionDatePicker></mat-datepicker>
       </mat-form-field>
@@ -17,7 +17,7 @@
         <h4>Food Waste</h4>
         <mat-form-field appearance="outline" class="full-width">
           <mat-label>Weight (lbs)</mat-label>
-          <input matInput type="number" placeholder="Enter weight" formControlName="foodWasteWeight">
+          <input matInput type="number" placeholder="Enter weight" formControlName="foodWasteWeight" min="0"> 
         </mat-form-field>
       </div>
 
@@ -25,7 +25,7 @@
         <h4>Aluminum</h4>
         <mat-form-field appearance="outline" class="full-width">
           <mat-label>Weight (lbs)</mat-label>
-          <input matInput type="number" placeholder="Enter weight" formControlName="aluminumWeight">
+          <input matInput type="number" placeholder="Enter weight" formControlName="aluminumWeight" min="0">
         </mat-form-field>
       </div>
 
@@ -33,7 +33,7 @@
         <h4>Cardboard</h4>
         <mat-form-field appearance="outline" class="full-width">
           <mat-label>Weight (lbs)</mat-label>
-          <input matInput type="number" placeholder="Enter weight" formControlName="cardboardWeight">
+          <input matInput type="number" placeholder="Enter weight" formControlName="cardboardWeight" min="0">
         </mat-form-field>
       </div>
 
@@ -41,7 +41,7 @@
         <h4>Glass</h4>
         <mat-form-field appearance="outline" class="full-width">
           <mat-label>Weight (lbs)</mat-label>
-          <input matInput type="number" placeholder="Enter weight" formControlName="glassWeight">
+          <input matInput type="number" placeholder="Enter weight" formControlName="glassWeight" min="0">
         </mat-form-field>
       </div>
 
@@ -49,7 +49,7 @@
         <h4>Metal</h4>
         <mat-form-field appearance="outline" class="full-width">
           <mat-label>Weight (lbs)</mat-label>
-          <input matInput type="number" placeholder="Enter weight" formControlName="metalWeight">
+          <input matInput type="number" placeholder="Enter weight" formControlName="metalWeight" min="0">
         </mat-form-field>
         <mat-form-field appearance="outline" class="full-width">
           <mat-label>Sub-category</mat-label>
@@ -64,7 +64,7 @@
         <h4>Paper</h4>
         <mat-form-field appearance="outline" class="full-width">
           <mat-label>Weight (lbs)</mat-label>
-          <input matInput type="number" placeholder="Enter weight" formControlName="paperWeight">
+          <input matInput type="number" placeholder="Enter weight" formControlName="paperWeight" min="0">
         </mat-form-field>
         <mat-form-field appearance="outline" class="full-width">
           <mat-label>Sub-category</mat-label>
@@ -81,7 +81,7 @@
         <h4>Plastic</h4>
         <mat-form-field appearance="outline" class="full-width">
           <mat-label>Weight (lbs)</mat-label>
-          <input matInput type="number" placeholder="Enter weight" formControlName="plasticWeight">
+          <input matInput type="number" placeholder="Enter weight" formControlName="plasticWeight" min="0">
         </mat-form-field>
         <mat-form-field appearance="outline" class="full-width">
           <mat-label>Sub-category</mat-label>
@@ -111,6 +111,17 @@
             </mat-option>
         </mat-select>
     </mat-form-field>
+   <!-- New Weight Field -->
+   <mat-form-field appearance="outline" class="full-width">
+    <mat-label>Weight (lbs)</mat-label>
+    <input matInput placeholder="Enter weight" type="number" formControlName="weight" min="0">
+    <mat-error *ngIf="revenueForm.get('weight')?.hasError('min')">
+        Weight cannot be negative.
+    </mat-error>
+    <mat-error *ngIf="revenueForm.get('weight')?.hasError('required')">
+        Weight is required.
+    </mat-error>
+</mat-form-field>
 
     <mat-form-field appearance="outline" class="full-width">
         <mat-label>Revenue (Amount in US$)</mat-label>
@@ -144,7 +155,7 @@
 
     <mat-form-field appearance="outline" class="full-width">
       <mat-label>Weight (lbs)</mat-label>
-      <input matInput placeholder="Enter weight in lbs" type="number" formControlName="weight">
+      <input matInput placeholder="Enter weight in lbs" type="number" formControlName="weight" min="0">
     </mat-form-field>
 
     <mat-form-field appearance="outline" class="full-width">

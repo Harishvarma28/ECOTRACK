@@ -1,0 +1,108 @@
+.welcome-page {
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  color: #ffffff;
+  font-family: 'Arial, sans-serif';
+
+  .background-video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: -1;
+    /* Ensure video is muted and autoplay */
+    object-fit: cover;
+    /* Ensures video doesn't hide */
+    opacity: 1;
+  }
+
+  .hero-content {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    .logo {
+      width: 150px;
+      animation: fadeIn 1.5s ease-in-out forwards; /* Ensuring animation completes and remains visible */
+    }
+
+    .slogan {
+      font-size: 2.5rem;
+      margin: 1rem 0;
+      animation: fadeIn 2s ease-in-out 0.5s forwards;
+    }
+
+    .mission {
+      font-size: 1.2rem;
+      margin: 0.5rem 0;
+      animation: fadeIn 2.5s ease-in-out 1s forwards;
+    }
+
+    .cta-buttons {
+      display: flex;
+      justify-content: center;
+      margin-top: 1.5rem;
+      .cta-button {
+        padding: 0.75rem 1.5rem;
+        border: none;
+        border-radius: 5px;
+        font-size: 1rem;
+        cursor: pointer;
+        transition: transform 0.3s;
+      }
+      .login-button {
+        background-color: #4caf50;
+      }
+      .learn-more-button {
+        background-color: #2196f3;
+      }
+      .cta-button:hover {
+        transform: scale(1.1);
+      }
+    }
+  }
+
+  /* Facts Carousel */
+  .facts-carousel {
+    position: absolute;
+    bottom: 2rem;
+    display: flex;
+    gap: 2rem;
+    overflow: hidden;
+    white-space: nowrap;
+    animation: slideLeft 10s linear infinite;
+    .fact {
+      font-size: 1.1rem;
+    }
+  }
+}
+
+/* Keyframe Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideLeft {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(-100%);
+  }
+}

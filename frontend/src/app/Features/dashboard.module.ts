@@ -26,6 +26,9 @@ import { AuthInterceptor } from '../auth/auth.interceptor';
 import { LoaderInterceptor } from '../auth/loader.interceptor';
 import { LoaderComponent } from './loader/loader.component';
 import { ReportsComponent } from './reports/reports.component';
+import { HomePageComponent } from './home-page/home-page.component';
+import { HelpPageComponent } from './help-page/help-page.component';
+import { AboutusComponent } from './aboutus/aboutus.component';
 @NgModule({
   declarations: [
     DashboardComponent,
@@ -33,7 +36,10 @@ import { ReportsComponent } from './reports/reports.component';
     ManageUsersComponent,
     UserDialogComponent,
     LoaderComponent,
-    ReportsComponent  // Add the DialogComponent here
+    ReportsComponent,
+    HomePageComponent,
+    HelpPageComponent,
+    AboutusComponent  // Add the DialogComponent here
   ],
   imports: [
     CommonModule,
@@ -58,7 +64,9 @@ import { ReportsComponent } from './reports/reports.component';
     DashboardComponent,
     ManageUsersComponent,
     UserDialogComponent,
-    LoaderComponent
+    LoaderComponent,
+    HomePageComponent,
+    AboutusComponent
   ],
 
 })

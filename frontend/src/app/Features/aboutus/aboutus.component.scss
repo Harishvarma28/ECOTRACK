@@ -1,0 +1,120 @@
+/* General Container */
+.about-us-container {
+    padding: 40px;
+    background: linear-gradient(to right, #f8f9fa, #e6e6e6); /* Light gradient */
+    color: #333; /* Dark gray text for better readability */
+    text-align: center;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.about-us-description {
+    font-size: 18px;
+    margin-bottom: 30px;
+    color: #444; /* Darker gray for text */
+    line-height: 1.8;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center; /* Center the paragraph */
+    animation: fadeIn 2s ease-in-out;
+}
+
+h1 {
+    font-size: 36px;
+    color: #4CAF50; /* Fresh green color for the heading */
+    margin-bottom: 10px;
+    animation: fadeIn 2s ease-in-out;
+}
+
+h2 {
+    font-size: 28px;
+    margin-bottom: 40px;
+    color: #4CAF50; /* Fresh green for sub-headings */
+    animation: fadeIn 2s ease-in-out;
+}
+
+/* Section Styles */
+h2 + p, ul {
+    font-size: 18px;
+    margin-bottom: 20px;
+    line-height: 1.6;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+ul li {
+    font-size: 16px;
+    color: #555; /* Lighter gray for list items */
+    margin: 5px 0;
+}
+
+/* Developer Team Section */
+.team-members {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* For 6 profiles, 3 per row */
+    gap: 20px;
+    justify-items: center;
+    animation: fadeIn 2s ease-in-out;
+}
+
+.team-member {
+    text-align: center;
+    width: 180px;
+    transition: transform 0.3s ease-in-out;
+}
+
+.team-member:hover {
+    transform: scale(1.05);
+}
+
+.circle {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin: 0 auto 10px;
+    border: 2px solid #ddd; /* Light border */
+}
+
+.developer-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+h3 {
+    font-size: 20px;
+    margin-bottom: 5px;
+    color: #333;
+}
+
+.developer-skills {
+    font-size: 16px;
+    color: #777;
+}
+
+.developer-skills ul {
+    margin-top: 10px;
+}
+
+.developer-skills li {
+    font-size: 14px;
+    color: #333;
+}
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

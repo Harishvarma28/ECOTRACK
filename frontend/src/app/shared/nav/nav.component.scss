@@ -79,6 +79,11 @@
   position: relative;
   transition: color 0.3s ease;
 }
+.navbar-item.active {
+  color: #007bff;
+  font-weight: bold;
+  border-bottom: 2px solid #007bff;
+}
 
 .user-name {
   margin-right: 12px;

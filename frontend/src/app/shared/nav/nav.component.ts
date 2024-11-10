@@ -33,7 +33,7 @@ export class NavComponent {
     sessionStorage.clear();
     
     // Navigate to the login page
-    this.router.navigate(['/auth/login']);
+    this.router.navigate(['/dashboard/homepage']);
   }
 
   toggleDropdown() {

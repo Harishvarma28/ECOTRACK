@@ -1,7 +1,15 @@
 <div class="login-container">
+    <video  #videoElement autoplay loop muted playsinline class="background-video">
+        <source src="assets/Videos/loginbackround.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
     <div class="overlay"></div>
     <form class="login-form" (ngSubmit)="onSubmit()" @fadeIn>
-        <h2>Login</h2>
+        <!-- Logo Section -->
+        <div class="logo-container">
+            <img src="assets/logo-n.svg" alt="Logo" class="login-logo" />
+        </div>
+        <h2>Login Page</h2>
         <div class="form-group">
             <label for="email">Email</label>
             <input type="email" id="email" class="form-control" [(ngModel)]="email" name="email" placeholder="Enter your email" required>

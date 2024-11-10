@@ -1,9 +1,13 @@
-/* Basic Styling */
+/* Global Page Styles */
 .dashboard-container {
   max-width: 1200px;
   margin: auto;
   padding: 20px;
-  animation: fadeIn 1.5s ease-in-out; /* Overall container animation */
+  animation: fadeIn 1.5s ease-in-out;
+}
+
+.contain-body {
+  background: linear-gradient(to right, #e0eafc, #cfdef3);
 }
 
 .carousel-container {
@@ -17,7 +21,7 @@
   border-radius: 8px;
   position: relative;
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
-  animation: slideIn 1.5s ease-in-out; /* Carousel image slide-in */
+  animation: slideIn 1.5s ease-in-out;
 }
 
 .carousel-image-wrapper img {
@@ -45,7 +49,7 @@
 .carousel-caption h3 {
   color: #fff;
   font-size: 24px;
-  animation: fadeInUp 1.2s ease-out; /* Caption animation */
+  animation: fadeInUp 1.2s ease-out;
 }
 
 ::ng-deep .carousel-control-next-icon,
@@ -54,33 +58,79 @@
   border-radius: 50%;
 }
 
-/* Card Container Animations */
+/* Cards Section */
 .cards-container .card {
   min-height: 220px;
-  color: white;
+  color: rgb(14, 14, 14);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  perspective: 1000px; /* For 3D rotation effect */
-  animation: scaleUp 0.8s ease-out 0.5s forwards; /* Cards scale up animation */
+  transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+  perspective: 1000px;
+  animation: scaleUp 0.8s ease-out 0.5s forwards;
+  background: #fff;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  font-family: 'Roboto', sans-serif;
+  overflow: hidden; /* Ensures content stays inside the card */
 }
 
+/* Add gradient background on hover */
+.cards-container .card:hover {
+  background: linear-gradient(to right, #56ccf2, #2f80ed); /* Gradient background on hover */
+  transform: translateY(-10px); /* Slight lift effect */
+  box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.2); /* Larger shadow for more emphasis */
+}
+
+/* Card Title */
 .card-title {
-  font-weight: bold;
+  font-weight: 500;
+  font-size: 1.1rem;
+  margin-bottom: 12px;
+  color: #333;
+  letter-spacing: 0.5px;
   animation: fadeInUp 1s ease-in-out;
+  transition: color 0.3s ease; /* Smooth color transition on hover */
 }
 
+/* Subtitle Styling */
+.card-subtitle {
+  font-size: 0.9rem;
+  color: #757575;
+  margin-bottom: 16px;
+  font-style: italic;
+  line-height: 1.4;
+  transition: color 0.3s ease;
+}
+
+/* Button Styling */
 .card .btn {
   width: 100%;
-  animation: pulse 1.5s infinite; /* Pulsing button */
+  background: linear-gradient(to right, #56ccf2, #2f80ed);
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 1rem;
+  padding: 12px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
+.card .btn:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  background: linear-gradient(to right, #2f80ed, #56ccf2); /* Reversed gradient on hover */
+}
+
+/* 3D Hover Effect for Cards */
 .card-animate:hover {
-  transform: rotateY(10deg) rotateX(5deg) translateY(-5px); /* 3D hover effect */
-  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.3);
+  transform: rotateY(10deg) rotateX(5deg) translateY(-5px);
+  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
 }
 
+/* Media Queries for responsiveness */
 @media (max-width: 768px) {
   .carousel-image-wrapper {
     height: 250px;
@@ -109,9 +159,4 @@
 @keyframes scaleUp {
   0% { transform: scale(0.8); opacity: 0; }
   100% { transform: scale(1); opacity: 1; }
-}
-
-@keyframes pulse {
-  0%, 100% { transform: scale(1); }
-  50% { transform: scale(1.05); }
 }

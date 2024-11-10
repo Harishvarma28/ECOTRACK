@@ -79,7 +79,8 @@ def login():
             username = user['name']  # Replace with actual username field
             role = user['role']  # Replace with actual role field
             user_id = user['id']
-            return jsonify({'access_token': access_token, 'refresh_token': refresh_token,'role':role,'username':username,'userid':user_id}), 200
+            status=user['status']
+            return jsonify({'access_token': access_token, 'refresh_token': refresh_token,'role':role,'username':username,'userid':user_id,'status':status}), 200
         else:
             print("Invalid password")  # Debug print
             return jsonify({"error": "Invalid credentials"}), 401

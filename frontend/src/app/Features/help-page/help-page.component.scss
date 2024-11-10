@@ -1,0 +1,107 @@
+/* Global Page Styles */
+.help-page {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start; /* Align to top to make room for the navbar */
+    min-height: 90vh; /* Ensures the page takes up at least full screen height */
+    background: linear-gradient(135deg, #00b4d8, #6a11cb); /* Gradient background */
+    font-family: 'Arial', sans-serif;
+    padding-top: 20px; /* Adjust this to match the height of your navbar */
+    animation: fadeIn 1.5s ease-in-out; /* Page fade-in animation */
+    overflow: auto; /* Allow scrolling if content exceeds the screen */
+  }
+  
+  /* Ensure the container doesn't overlap the navbar */
+  .container {
+    background-color: white;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 600px;
+    max-height: calc(95vh - 70px); /* Ensure container doesn't exceed the screen height */
+    overflow-y: auto; /* Allow scrolling inside the container */
+    animation: slideUp 0.5s ease-out; /* Animation for container sliding up */
+  }
+  
+  /* Header and Text Styling */
+  h1 {
+    font-size: 2.2rem;
+    text-align: center;
+    margin-bottom: 1.5rem;
+    color: #333;
+  }
+  
+  p {
+    text-align: center;
+    margin-bottom: 2rem;
+    font-size: 1.1rem;
+    color: #666;
+  }
+  
+  /* Form Group Styling */
+  .form-group {
+    margin-bottom: 1.5rem;
+  }
+  
+  label {
+    font-size: 1rem;
+    font-weight: bold;
+    color: #333;
+  }
+  
+  input, select, textarea {
+    width: 100%;
+    padding: 0.75rem;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    transition: all 0.3s ease-in-out;
+  }
+  
+  /* Focus Effect for Inputs */
+  input:focus, select:focus, textarea:focus {
+    border-color: #4caf50;
+    box-shadow: 0 0 5px rgba(76, 175, 80, 0.5);
+  }
+  
+  /* Button Styling */
+  button {
+    width: 100%;
+    padding: 1rem;
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  button:disabled {
+    background-color: #dcdcdc;
+  }
+  
+  button:hover:enabled {
+    background-color: #45a049;
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .container {
+      padding: 1.5rem;
+    }
+  }
+  
+  /* Animations */
+  @keyframes fadeIn {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+  }
+  
+  @keyframes slideUp {
+    0% { transform: translateY(20px); opacity: 0; }
+    100% { transform: translateY(0); opacity: 1; }
+  }
+  

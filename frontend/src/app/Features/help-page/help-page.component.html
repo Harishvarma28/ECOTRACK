@@ -1,0 +1,51 @@
+<div class="help-page">
+    <div class="container">
+      <h1>Need Help? We're Here for You!</h1>
+      <p>If you have any questions or issues related to recycling, feel free to reach out to us.</p>
+  
+      <form (ngSubmit)="onSubmit()" [formGroup]="helpForm" class="help-form">
+        <div class="form-group">
+          <label for="name">Your Name</label>
+          <input type="text" id="name" formControlName="name" required />
+        </div>
+  
+        <div class="form-group">
+          <label for="email">Your Email</label>
+          <input type="email" id="email" formControlName="email" required />
+        </div>
+  
+        <div class="form-group">
+          <label for="issue">Describe Your Issue or Question(min 10 words)</label>
+          <textarea id="issue" formControlName="issue" rows="4" required></textarea>
+        </div>
+  
+        <div class="form-group">
+          <label for="recyclingCategory">Recycling Category</label>
+          <select id="recyclingCategory" formControlName="recyclingCategory">
+            <option value="paper">Paper</option>
+            <option value="plastic">Plastic</option>
+            <option value="glass">Glass</option>
+            <option value="e-waste">E-waste</option>
+            <option value="other">Other</option>
+          </select>
+        </div>
+  
+        <div class="form-group">
+          <label for="priority">Priority</label>
+          <select id="priority" formControlName="priority">
+            <option value="low">Low</option>
+            <option value="medium">Medium</option>
+            <option value="high">High</option>
+          </select>
+        </div>
+  
+        <div class="form-group">
+          <label for="additionalComments">Additional Comments (optional)</label>
+          <textarea id="additionalComments" formControlName="additionalComments" rows="4"></textarea>
+        </div>
+  
+        <button type="submit" [disabled]="!helpForm.valid">Submit</button>
+      </form>
+    </div>
+  </div>
+  
