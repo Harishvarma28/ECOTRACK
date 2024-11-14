@@ -23,6 +23,14 @@ export class AuthService {
   login(email: string, password: string): Observable<any> {
     return this.http.post<any>(`${this.apiUrl}/login`, { email, password }).pipe(
       tap((response) => {
+
+         // Check if the user is inactive
+      if (response.status === 'Inactive') {
+        // Display a message and throw an error if the user is inactive
+        console.log("response status",response.status)
+        this.toastService.error('Your account is inactive. Please contact support for assistance.');
+        throw new Error('Inactive user');
+      }
         this.accessToken = response.access_token;
         this.refreshToken = response.refresh_token;
         this.username=response.username

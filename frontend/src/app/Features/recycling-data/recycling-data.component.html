@@ -1,0 +1,134 @@
+<div class="recycling-dashboard">
+    <mat-sidenav-container class="sidenav-container">
+      <mat-sidenav mode="side" class="sidenav" opened>
+        <mat-nav-list>
+          <mat-list-item (click)="showRecyclingCollection()" [class.active]="currentTable === 'recyclingCollection'">
+            Recycling Collection
+          </mat-list-item>
+          <mat-list-item (click)="showRecyclingRevenue()" [class.active]="currentTable === 'recyclingRevenue'">
+            Revenue Records
+          </mat-list-item>
+          <mat-list-item (click)="showLandfillExpense()" [class.active]="currentTable === 'landfillExpense'">
+            Landfill Expenses
+          </mat-list-item>
+        </mat-nav-list>
+      </mat-sidenav>
+      <mat-sidenav-content class="sidenav-content">
+        <div class="recycling-table-wrapper">
+        <table mat-table [dataSource]="currentDataSource" [@tableAnimation] class="recycling-table">
+  
+          <!-- Recycling Collection Columns -->
+          <ng-container *ngIf="currentTable === 'recyclingCollection'">
+            <ng-container matColumnDef="collection_date">
+              <th mat-header-cell *matHeaderCellDef>Collection Date</th>
+              <td mat-cell *matCellDef="let element">{{ element.collection_date | date }}</td>
+            </ng-container>
+            <ng-container matColumnDef="food_waste_weight">
+              <th mat-header-cell *matHeaderCellDef>Food Waste (lbs)</th>
+              <td mat-cell *matCellDef="let element">{{ element.food_waste_weight }}</td>
+            </ng-container>
+            <ng-container matColumnDef="aluminum_weight">
+              <th mat-header-cell *matHeaderCellDef>Aluminum (lbs)</th>
+              <td mat-cell *matCellDef="let element">{{ element.aluminum_weight }}</td>
+            </ng-container>
+            <ng-container matColumnDef="cardboard_weight">
+              <th mat-header-cell *matHeaderCellDef>Cardboard (lbs)</th>
+              <td mat-cell *matCellDef="let element">{{ element.cardboard_weight }}</td>
+            </ng-container>
+            <ng-container matColumnDef="glass_weight">
+              <th mat-header-cell *matHeaderCellDef>Glass (lbs)</th>
+              <td mat-cell *matCellDef="let element">{{ element.glass_weight }}</td>
+            </ng-container>
+            <ng-container matColumnDef="metal_weight">
+              <th mat-header-cell *matHeaderCellDef>Metal (lbs)</th>
+              <td mat-cell *matCellDef="let element">{{ element.metal_weight }}</td>
+            </ng-container>
+            <ng-container matColumnDef="metal_subcategory">
+              <th mat-header-cell *matHeaderCellDef>Metal Subcategory</th>
+              <td mat-cell *matCellDef="let element">{{ element.metal_subcategory }}</td>
+            </ng-container>
+            <ng-container matColumnDef="paper_weight">
+              <th mat-header-cell *matHeaderCellDef>Paper (lbs)</th>
+              <td mat-cell *matCellDef="let element">{{ element.paper_weight }}</td>
+            </ng-container>
+            <ng-container matColumnDef="paper_subcategory">
+              <th mat-header-cell *matHeaderCellDef>Paper Subcategory</th>
+              <td mat-cell *matCellDef="let element">{{ element.paper_subcategory }}</td>
+            </ng-container>
+            <ng-container matColumnDef="plastic_weight">
+              <th mat-header-cell *matHeaderCellDef>Plastic (lbs)</th>
+              <td mat-cell *matCellDef="let element">{{ element.plastic_weight }}</td>
+            </ng-container>
+            <ng-container matColumnDef="plastic_subcategory">
+              <th mat-header-cell *matHeaderCellDef>Plastic Subcategory</th>
+              <td mat-cell *matCellDef="let element">{{ element.plastic_subcategory }}</td>
+            </ng-container>
+          </ng-container>
+  
+          <!-- Recycling Revenue Columns -->
+          <ng-container *ngIf="currentTable === 'recyclingRevenue'">
+            <ng-container matColumnDef="sale_date">
+              <th mat-header-cell *matHeaderCellDef>Sale Date</th>
+              <td mat-cell *matCellDef="let element">{{ element.sale_date | date }}</td>
+            </ng-container>
+            <ng-container matColumnDef="material_type">
+              <th mat-header-cell *matHeaderCellDef>Material Type</th>
+              <td mat-cell *matCellDef="let element">{{ element.material_type }}</td>
+            </ng-container>
+            <ng-container matColumnDef="revenue_amount">
+              <th mat-header-cell *matHeaderCellDef>Revenue ($)</th>
+              <td mat-cell *matCellDef="let element">{{ element.revenue_amount }}</td>
+            </ng-container>
+            <ng-container matColumnDef="buyer">
+              <th mat-header-cell *matHeaderCellDef>Buyer</th>
+              <td mat-cell *matCellDef="let element">{{ element.buyer }}</td>
+            </ng-container>
+            <ng-container matColumnDef="weight">
+              <th mat-header-cell *matHeaderCellDef>Weight (lbs)</th>
+              <td mat-cell *matCellDef="let element">{{ element.weight }}</td>
+            </ng-container>
+          </ng-container>
+  
+          <!-- Landfill Expense Columns -->
+          <ng-container *ngIf="currentTable === 'landfillExpense'">
+            <ng-container matColumnDef="landfill_date">
+              <th mat-header-cell *matHeaderCellDef>Landfill Date</th>
+              <td mat-cell *matCellDef="let element">{{ element.landfill_date | date }}</td>
+            </ng-container>
+            <ng-container matColumnDef="weight">
+              <th mat-header-cell *matHeaderCellDef>Weight (lbs)</th>
+              <td mat-cell *matCellDef="let element">{{ element.weight }}</td>
+            </ng-container>
+            <ng-container matColumnDef="expense_amount">
+              <th mat-header-cell *matHeaderCellDef>Expense Amount ($)</th>
+              <td mat-cell *matCellDef="let element">{{ element.expense_amount }}</td>
+            </ng-container>
+            <ng-container matColumnDef="landfill_hauler">
+              <th mat-header-cell *matHeaderCellDef>Landfill Hauler</th>
+              <td mat-cell *matCellDef="let element">{{ element.landfill_hauler }}</td>
+            </ng-container>
+          </ng-container>
+  
+          <!-- Action Column -->
+          <ng-container matColumnDef="action">
+            <th mat-header-cell *matHeaderCellDef>Action</th>
+            <td mat-cell *matCellDef="let element">
+              <button mat-button color="warn" (click)="deleteItem(element.id, currentTable)">Delete</button>
+            </td>
+          </ng-container>
+  
+          <!-- Table Headers and Rows -->
+          <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true " ></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+    </div>
+    <mat-paginator
+    [length]="totalRecords"             
+    [pageSize]="50"                      
+    [pageSizeOptions]="[50, 100, 200]"    
+    (page)="onPageChange($event)">       
+  </mat-paginator>
+      </mat-sidenav-content>
+    </mat-sidenav-container>
+  </div>
+  

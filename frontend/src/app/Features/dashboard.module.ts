@@ -29,6 +29,14 @@ import { ReportsComponent } from './reports/reports.component';
 import { HomePageComponent } from './home-page/home-page.component';
 import { HelpPageComponent } from './help-page/help-page.component';
 import { AboutusComponent } from './aboutus/aboutus.component';
+import { RecyclingDataComponent } from './recycling-data/recycling-data.component';
+
+import { MatSortModule } from '@angular/material/sort';
+import { MatPaginatorModule } from '@angular/material/paginator'
+import { MatListModule } from '@angular/material/list';
+import { MatSidenavModule } from '@angular/material/sidenav';
+
+
 @NgModule({
   declarations: [
     DashboardComponent,
@@ -39,7 +47,8 @@ import { AboutusComponent } from './aboutus/aboutus.component';
     ReportsComponent,
     HomePageComponent,
     HelpPageComponent,
-    AboutusComponent  // Add the DialogComponent here
+    AboutusComponent,
+    RecyclingDataComponent  // Add the DialogComponent here
   ],
   imports: [
     CommonModule,
@@ -58,6 +67,10 @@ import { AboutusComponent } from './aboutus/aboutus.component';
     MatIconModule,
     ReactiveFormsModule,
     AuthModule ,
+    MatSortModule,
+    MatPaginatorModule,
+    MatListModule,
+    MatSidenavModule
 
   ],
   exports: [
@@ -66,7 +79,8 @@ import { AboutusComponent } from './aboutus/aboutus.component';
     UserDialogComponent,
     LoaderComponent,
     HomePageComponent,
-    AboutusComponent
+    AboutusComponent,
+    RecyclingDataComponent
   ],
 
 })

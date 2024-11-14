@@ -8,6 +8,7 @@ import { ReportsComponent } from './reports/reports.component';
 import { HomePageComponent } from './home-page/home-page.component';
 import { HelpPageComponent } from './help-page/help-page.component';
 import { AboutusComponent } from './aboutus/aboutus.component';
+import { RecyclingDataComponent } from './recycling-data/recycling-data.component';
 
 const routes: Routes = [
   { path: '', component: DashboardComponent, canActivate: [AuthGuard] },
@@ -15,7 +16,8 @@ const routes: Routes = [
   { path: 'reports', component: ReportsComponent ,canActivate: [AuthGuard] },
   {path:'homepage',component:HomePageComponent},
   {path:'helppage',component:HelpPageComponent},
-  {path:'About-Us',component:AboutusComponent}
+  {path:'About-Us',component:AboutusComponent},
+  {path:'DataSpce',component:RecyclingDataComponent}
 ];
 
 @NgModule({

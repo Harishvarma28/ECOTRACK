@@ -24,6 +24,14 @@ export class LoginComponent implements AfterViewInit {
         this.authService.login(this.email, this.password).subscribe(
             (response) => {
                 // Check user role and status
+                            // Check if the user is inactive
+            if (response.user.status === 'Inactive') {
+              // Display error message and prevent login
+              this.toastService.error('Your account is inactive. Please contact support.');
+              return; // Exit the function to stop further execution
+          }
+
+                
                 console.log(response.user.status)
                 if (response.user.status === 'New User') {
                     // Redirect to change password page for new users

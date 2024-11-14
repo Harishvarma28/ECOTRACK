@@ -128,3 +128,118 @@ def landfill_expense():
     if result:
         return jsonify({"message": "Landfill expense data saved successfully"}), 201
     return jsonify({"error": "Failed to save landfill expense data"}), 500
+
+
+@recycling_bp.route('/recycling-collection', methods=['GET'])
+def get_recycling_collection():
+    # Query to retrieve all data from `recycling_collection` table, including the `id` column
+    query = """
+        SELECT id, user_id, collection_date, food_waste_weight, aluminum_weight, cardboard_weight, 
+               glass_weight, metal_weight, metal_subcategory, paper_weight, 
+               paper_subcategory, plastic_weight, plastic_subcategory
+        FROM recycling_collection
+    """
+    result = execute_query(query)
+    if result:
+        # Format result to include column names
+        data = [
+            {
+                "id": row[0],
+                "user_id": row[1],
+                "collection_date": row[2],
+                "food_waste_weight": row[3],
+                "aluminum_weight": row[4],
+                "cardboard_weight": row[5],
+                "glass_weight": row[6],
+                "metal_weight": row[7],
+                "metal_subcategory": row[8],
+                "paper_weight": row[9],
+                "paper_subcategory": row[10],
+                "plastic_weight": row[11],
+                "plastic_subcategory": row[12]
+            }
+            for row in result
+        ]
+        return jsonify({"data": data}), 200
+    return jsonify({"error": "Failed to fetch recycling collection data"}), 500
+
+
+@recycling_bp.route('/recycling-revenue', methods=['GET'])
+def get_recycling_revenue():
+    # Query to retrieve all data from `recycling_revenue` table, including the `id` column
+    query = """
+        SELECT id, user_id, sale_date, material_type, revenue_amount, buyer, weight
+        FROM recycling_revenue
+    """
+    result = execute_query(query)
+    if result:
+        # Format result to include column names
+        data = [
+            {
+                "id": row[0],
+                "user_id": row[1],
+                "sale_date": row[2],
+                "material_type": row[3],
+                "revenue_amount": row[4],
+                "buyer": row[5],
+                "weight": row[6]
+            }
+            for row in result
+        ]
+        return jsonify({"data": data}), 200
+    return jsonify({"error": "Failed to fetch recycling revenue data"}), 500
+
+
+@recycling_bp.route('/landfill-expense', methods=['GET'])
+def get_landfill_expense():
+    # Query to retrieve all data from `landfill_expense` table, including the `id` column
+    query = """
+        SELECT id, user_id, landfill_date, weight, expense_amount, landfill_hauler
+        FROM landfill_expense
+    """
+    result = execute_query(query)
+    if result:
+        # Format result to include column names
+        data = [
+            {
+                "id": row[0],
+                "user_id": row[1],
+                "landfill_date": row[2],
+                "weight": row[3],
+                "expense_amount": row[4],
+                "landfill_hauler": row[5]
+            }
+            for row in result
+        ]
+        return jsonify({"data": data}), 200
+    return jsonify({"error": "Failed to fetch landfill expense data"}), 500
+
+
+@recycling_bp.route('/recycling-collection/<int:id>', methods=['DELETE'])
+def delete_recycling_collection(id):
+    # Query to delete a record from `recycling_collection` table by id
+    query = "DELETE FROM recycling_collection WHERE id = %s"
+    result = execute_query(query, (id,))
+    if result:
+        return jsonify({"message": f"Recycling collection with id {id} deleted successfully"}), 200
+    return jsonify({"error": "Failed to delete recycling collection data"}), 500
+
+
+@recycling_bp.route('/recycling-revenue/<int:id>', methods=['DELETE'])
+def delete_recycling_revenue(id):
+    # Query to delete a record from `recycling_revenue` table by id
+    query = "DELETE FROM recycling_revenue WHERE id = %s"
+    result = execute_query(query, (id,))
+    if result:
+        return jsonify({"message": f"Recycling revenue with id {id} deleted successfully"}), 200
+    return jsonify({"error": "Failed to delete recycling revenue data"}), 500
+
+
+@recycling_bp.route('/landfill-expense/<int:id>', methods=['DELETE'])
+def delete_landfill_expense(id):
+    # Query to delete a record from `landfill_expense` table by id
+    query = "DELETE FROM landfill_expense WHERE id = %s"
+    result = execute_query(query, (id,))
+    if result:
+        return jsonify({"message": f"Landfill expense with id {id} deleted successfully"}), 200
+    return jsonify({"error": "Failed to delete landfill expense data"}), 500

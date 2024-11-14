@@ -1,0 +1,127 @@
+.recycling-dashboard {
+  display: flex;
+  flex-direction: column;
+  height: 100vh; /* Full viewport height */
+  overflow: hidden;
+}
+
+.sidenav-container {
+  flex-grow: 1;
+  height: 100%;
+}
+
+.sidenav {
+  background: linear-gradient(135deg, #d7f4e5 0%, #b3e5d6 100%);
+  color: #333;
+  width: 250px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100%; /* Full height based on container */
+  box-shadow: 2px 0 8px rgba(0, 0, 0, 0.1);
+}
+
+.sidenav-content {
+  padding: 10px;
+  overflow: hidden;
+  background-color: #f4f7fa;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  flex-grow: 1;
+  overflow-y: auto; /* Enable vertical scrolling */
+}
+
+.recycling-table-wrapper {
+  display: block;
+  overflow-x: auto; /* Enable horizontal scrolling if needed */
+  max-height: 540px;
+}
+
+.recycling-table {
+  width: 100%; /* Ensure the table stretches across */
+  max-height: 450px;
+  overflow-y: auto; /* Enable vertical scrolling */
+  table-layout: auto; /* Allow table to adjust based on content */
+  margin-top: 10px;
+  border-collapse: collapse;
+}
+
+.mat-header-cell {
+  background-color: #3f51b5;
+  color: #fff;
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  padding: 10px;
+  text-align: center;
+}
+
+.mat-cell {
+  text-align: center;
+  padding: 10px;
+}
+
+.mat-header-row {
+  background-color: #696868;
+}
+
+.mat-paginator {
+  margin-top: 20px;
+}
+
+/* Sidebar menu items */
+.mat-list-item {
+  color: #333;
+  cursor: pointer;
+  padding: 15px;
+  text-align: center;
+  font-weight: 500;
+  border-radius: 4px;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.mat-list-item:hover {
+  background-color: #b3e5d6;
+}
+
+.mat-list-item.active {
+  background-color: #70c1b3;
+  color: #fff;
+  font-weight: 600;
+  border-left: 4px solid #3f51b5;
+}
+
+/* Button styles */
+button.mat-button, button.mat-raised-button {
+  background-color: #3f51b5;
+  color: #fff;
+  font-weight: 500;
+  border-radius: 4px;
+  padding: 6px 12px;
+  transition: background-color 0.3s ease, transform 0.1s ease;
+}
+
+button.mat-button:hover, button.mat-raised-button:hover {
+  background-color: #5c6bc0;
+}
+
+button.mat-button:active, button.mat-raised-button:active {
+  transform: scale(0.98);
+}
+
+/* Adjust for smaller screens */
+@media (max-width: 768px) {
+  .sidenav {
+      width: 200px;
+  }
+
+  .mat-list-item {
+      font-size: 14px;
+  }
+  
+  /* Adjust table layout for smaller screens */
+  .recycling-table {
+      overflow-x: auto; /* Allow horizontal scrolling on smaller screens */
+  }
+}

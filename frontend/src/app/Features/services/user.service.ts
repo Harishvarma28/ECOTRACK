@@ -44,4 +44,7 @@ export class UserService {
   updatePassword(email: string, otp: string, newPassword: string, confirmPassword: string): Observable<any> {
     return this.http.post(`${this.apiUrl}/update-password`, { email, otp, new_password: newPassword, confirm_password: confirmPassword });
   }
+
+
+  
 }

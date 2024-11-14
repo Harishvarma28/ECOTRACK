@@ -21,4 +21,34 @@ export class DataFormService {
   submitLandfillExpense(data: any): Observable<any> {
     return this.http.post(`${this.baseUrl}/landfill-expense`, data);
   }
+
+
+  getRecyclingCollection(): Observable<any> {
+    return this.http.get(`${this.baseUrl}/recycling-collection`);
+  }
+
+  getRecyclingRevenue(): Observable<any> {
+    return this.http.get(`${this.baseUrl}/recycling-revenue`);
+  }
+
+  getLandfillExpense(): Observable<any> {
+    return this.http.get(`${this.baseUrl}/landfill-expense`);
+  }
+
+  deleteItem(id: number, endpoint: string): Observable<any> {
+    return this.http.delete(`${this.baseUrl}/${endpoint}/${id}`);
+  }
+
+  deleteRecyclingCollection(id: number): Observable<any> {
+    return this.http.delete(`${this.baseUrl}/recycling-collection/${id}`);
+  }
+
+  deleteRecyclingRevenue(id: number): Observable<any> {
+    return this.http.delete(`${this.baseUrl}/recycling-revenue/${id}`);
+  }
+
+  deleteLandfillExpense(id: number): Observable<any> {
+    return this.http.delete(`${this.baseUrl}/landfill-expense/${id}`);
+  }
+
 }
