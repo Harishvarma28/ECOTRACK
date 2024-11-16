@@ -38,11 +38,12 @@ export class ChangepasswordComponent implements AfterViewInit {
     // Call the change password API
     this.authService.changePassword(this.email, this.newPassword, this.confirmPassword).subscribe(
       response => {
-        this.toastr.success('Password changed successfully!');
+        // this.toastr.success('Password changed successfully!');
         this.router.navigate(['/login']); // Redirect to login
       },
       error => {
-         this.toastr.error('Error changing password') // Adjusted error message handling
+        console.log(error)
+        //  this.toastr.error(error.message) // Adjusted error message handling
       }
     );
   }

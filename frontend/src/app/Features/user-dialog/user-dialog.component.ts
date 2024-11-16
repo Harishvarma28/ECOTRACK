@@ -68,14 +68,17 @@ export class UserDialogComponent {
         this.userForm.markAllAsTouched(); // Trigger form validation
       }
     } else if (this.data.action === 'delete') {
-      if (confirm('Are you sure you want to delete this user?')) {
-        this.userService.deleteUser(this.data.user!.email).subscribe(() => {
+
+      this.userService.deleteUser(this.data.user!.email).subscribe({
+        next: () => {
           this.toastr.success('User deleted successfully!');  // Success Toast
           this.dialogRef.close(this.data.user); // Close dialog with deleted user data
-        }, error => {
-          this.toastr.error('Error deleting user: ' + error.message);  // Error Toast
-        });
-      }
+        },
+        error: (error) => {
+          // Display the specific error message from the service
+          this.toastr.error(error.message);  // Error Toast with dynamic message
+        }
+      });
     }
   }
 }

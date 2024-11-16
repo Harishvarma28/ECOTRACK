@@ -2,6 +2,7 @@ from flask import Blueprint, request, jsonify
 from app.utils.db_utils import execute_query, fetch_one,fetch_all
 from app.utils.email_utils import send_email
 from passlib.context import CryptContext
+from mysql.connector.errors import IntegrityError
 import random
 import jwt
 import os
@@ -125,6 +126,9 @@ def change_password():
         user = fetch_one("SELECT * FROM users WHERE email = %s", (email,))
         if not user:
             return jsonify({"error": "User not found"}), 404
+                # Check if the user's status is 'Inactive'
+        if user.get('status') == 'Inactive':
+            return jsonify({"error": "User is inactive, password change is not allowed"}), 403
 
         hashed_new_password = pwd_context.hash(new_password)
         query = "UPDATE users SET password = %s, status = 'Active' WHERE email = %s"
@@ -192,11 +196,24 @@ def delete_user():
     if not email:
         return jsonify({"error": "Email is required"}), 400
 
-    # SQL query to delete a user by email
-    query = "DELETE FROM users WHERE email = %s"
-    result = execute_query(query, (email,))
+    # Step 1: Check if the user exists
+    user = fetch_one("SELECT id FROM users WHERE email = %s", (email,))
+    if not user:
+        return jsonify({"error": "User not found"}), 404  # Return 404 if user doesn't exist
+    
+    try:
+        # Step 2: Try to delete the user
+        delete_query = "DELETE FROM users WHERE email = %s"
+        result = execute_query(delete_query, (email,))
 
-    if result is not None:
-        return jsonify({"message": "User deleted successfully"}), 200
-    else:
-        return jsonify({"error": "Failed to delete user"}), 500
+        if result:  # If the delete operation affected rows
+            return jsonify({"message": "User deleted successfully"}), 200
+        else:
+            return jsonify({"error": "Failed to delete user, no rows affected"}), 500  # If no rows were affected
+
+    except IntegrityError as e:
+        # Handle foreign key constraint violation (user has related records)
+        return jsonify({"error": "User cannot be deleted because they have associated records."}), 400
+    except Exception as e:
+        # Catch any other exceptions
+        return jsonify({"error": f"An error occurred: {str(e)}"}), 500

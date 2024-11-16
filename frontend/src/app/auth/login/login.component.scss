@@ -124,3 +124,29 @@
         }
     }
 }
+
+.password-container {
+    position: relative;
+  }
+  
+  .password-container input {
+    padding-right: 40px; /* Create space for the icon on the right side */
+  }
+  
+  .password-toggle {
+    position: absolute;
+    right: 10px; /* Position the icon on the right side */
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 20px;
+    color: #333;
+    top: 50%;
+    transform: translateY(-50%); /* Center the icon vertically */
+  }
+  
+  .password-toggle i {
+    font-size: 20px;
+    color: #333;
+  }
+  

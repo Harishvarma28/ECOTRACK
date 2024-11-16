@@ -17,6 +17,8 @@ import { AuthInterceptor } from './auth/auth.interceptor';
 import { LoaderInterceptor } from './auth/loader.interceptor';
 import { DashboardModule } from './Features/dashboard.module';
 
+import { ToastrModule } from 'ngx-toastr';
+
 // import { MatFormFieldModule } from '@angular/material/form-field';
 // import { MatInputModule } from '@angular/material/input';
 // import { MatButtonModule } from '@angular/material/button';
@@ -36,7 +38,11 @@ import { DashboardModule } from './Features/dashboard.module';
     DashboardModule,
     HttpClientModule,
     NgbModule,
-    AuthModule 
+    ToastrModule.forRoot({
+      // positionClass: 'toast-top-right',
+      // timeOut: 3000,
+      // preventDuplicates: true,
+    }),
   
   
   ],

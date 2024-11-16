@@ -31,9 +31,9 @@ export class NavComponent {
     // Perform logout logic (clear user data, etc.)
     localStorage.removeItem('userToken');
     sessionStorage.clear();
-    
+    this.authservice.logout();
     // Navigate to the login page
-    this.router.navigate(['/dashboard/homepage']);
+    // this.router.navigate(['/dashboard/homepage']);
   }
 
   toggleDropdown() {

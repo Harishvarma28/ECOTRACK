@@ -13,6 +13,7 @@ export class LoginComponent implements AfterViewInit {
     @ViewChild('playButton') playButton!: ElementRef<HTMLButtonElement>;
     email: string = '';
     password: string = '';
+    passwordFieldType: string = 'password'; 
 
     constructor(private authService: AuthService, private router: Router,private toastService: ToastService) {}
     ngAfterViewInit(): void {
@@ -52,7 +53,7 @@ export class LoginComponent implements AfterViewInit {
                 if (error.error === 'Inactive user') {
                     this.toastService.error('Your account is inactive. Please contact support.');
                 } else {
-                    this.toastService.error("UNAUTHORIZED");
+                    // this.toastService.error("UNAUTHORIZED");
                 }
             }
         );
@@ -103,4 +104,10 @@ export class LoginComponent implements AfterViewInit {
       });
     }
   }
+
+  togglePasswordVisibility(): void {
+    this.passwordFieldType = this.passwordFieldType === 'password' ? 'text' : 'password';
+  }
+
+
 }

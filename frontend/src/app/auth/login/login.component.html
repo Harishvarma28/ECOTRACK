@@ -1,5 +1,5 @@
 <div class="login-container">
-    <video  #videoElement autoplay loop muted playsinline class="background-video">
+    <video #videoElement autoplay loop muted playsinline class="background-video">
         <source src="assets/Videos/loginbackround.mp4" type="video/mp4">
         Your browser does not support the video tag.
     </video>
@@ -16,7 +16,14 @@
         </div>
         <div class="form-group">
             <label for="password">Password</label>
-            <input type="password" id="password" class="form-control" [(ngModel)]="password" name="password" placeholder="Enter your password" required>
+            <div class="password-container">
+               
+                <input [type]="passwordFieldType" id="password" class="form-control" [(ngModel)]="password" name="password" placeholder="Enter your password" required>
+
+                <button type="button" class="password-toggle" (click)="togglePasswordVisibility()">
+                    <i class="fa" [ngClass]="passwordFieldType === 'password' ? 'fa-eye-slash' : 'fa-eye'"></i>
+                </button>
+            </div>
         </div>
         <button type="submit" class="btn btn-primary">Login</button>
         <p class="register-link">Forgot your password? <a routerLink="/auth/changepassword">Change Password</a></p>

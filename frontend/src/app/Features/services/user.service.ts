@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { catchError, Observable, throwError } from 'rxjs';
 
 interface User {
   name: string;
@@ -34,8 +34,19 @@ export class UserService {
 
   deleteUser(email: string): Observable<void> {
     const body = { email };
-    return this.http.delete<void>(`${this.apiUrl}/delete`, { body });
+    return this.http.delete<void>(`${this.apiUrl}/delete`, { body }).pipe(
+      catchError(error => {
+        // Check for a foreign key constraint violation message in the error response
+        if (error.status === 400 && error.error && error.error.error) {
+          // Custom message from backend
+          return throwError(() => new Error(error.error.error));
+        }
+        // Handle any other errors
+        return throwError(() => new Error('Error deleting user: ' + error.message));
+      })
+    );
   }
+  
 
   requestPasswordChange(email: string, tempPassword: string): Observable<any> {
     return this.http.post(`${this.apiUrl}/request-password-change`, { email, tempPassword });

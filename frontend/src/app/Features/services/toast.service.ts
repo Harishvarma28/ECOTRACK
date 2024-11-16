@@ -1,41 +1,47 @@
 import { Injectable } from '@angular/core';
-import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
+import { ToastrService } from 'ngx-toastr';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ToastService {
-
-  constructor(private snackBar: MatSnackBar) {}
+  constructor(private toastr: ToastrService) {}
 
   // Display success message
-  success(message: string, duration: number = 3000): void {
-    this.showToast(message, 'success-toast', duration);
+  success(message: string, title: string = '', duration: number = 3000): void {
+    console.log('succ_test_toaster');
+    this.toastr.success(message, title, {
+      timeOut: duration,
+      closeButton: true,
+      progressBar: true, // Optional: Shows a progress bar
+    });
   }
 
   // Display error message
-  error(message: string, duration: number = 3000): void {
-    this.showToast(message, 'error-toast', duration);
+  error(message: string, title: string = '', duration: number = 3000): void {
+    this.toastr.error(message, title, {
+      timeOut: duration,
+      closeButton: true,
+      progressBar: true, // Optional: Shows a progress bar
+    });
   }
 
   // Display info message
-  info(message: string, duration: number = 3000): void {
-    this.showToast(message, 'info-toast', duration);
+  info(message: string, title: string = '', duration: number = 3000): void {
+    console.log('test_logout');
+    this.toastr.info(message, title, {
+      timeOut: duration,
+      closeButton: true,
+      progressBar: true, // Optional: Shows a progress bar
+    });
   }
 
   // Display warning message
-  warning(message: string, duration: number = 3000): void {
-    this.showToast(message, 'warning-toast', duration);
-  }
-
-  // Generic method to display toast
-  private showToast(message: string, panelClass: string, duration: number): void {
-    const config: MatSnackBarConfig = {
-      duration,
-      panelClass,
-      horizontalPosition: 'right',
-      verticalPosition: 'top'
-    };
-    this.snackBar.open(message, 'Close', config);
+  warning(message: string, title: string = '', duration: number = 3000): void {
+    this.toastr.warning(message, title, {
+      timeOut: duration,
+      closeButton: true,
+      progressBar: true, // Optional: Shows a progress bar
+    });
   }
 }

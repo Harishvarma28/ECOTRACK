@@ -4,6 +4,7 @@ import { Observable, BehaviorSubject, throwError } from 'rxjs';
 import { tap, catchError } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { ToastService } from '../Features/services/toast.service';
+import { response } from 'express';
 
 @Injectable({
   providedIn: 'root'
@@ -28,7 +29,7 @@ export class AuthService {
       if (response.status === 'Inactive') {
         // Display a message and throw an error if the user is inactive
         console.log("response status",response.status)
-        this.toastService.error('Your account is inactive. Please contact support for assistance.');
+        this.toastService.error('Your account is inactive. Please contact support for assistance.','Warning');
         throw new Error('Inactive user');
       }
         this.accessToken = response.access_token;
@@ -46,12 +47,12 @@ export class AuthService {
         if(response.status==="New User") {
           // Redirect to change password page for new users
           this.router.navigate(['/auth/changepassword']);
-          this.toastService.info('Please change your password to proceed.');
+          this.toastService.info('Please change your password to proceed.','Info', 5000);
         }
         else{
         this.router.navigate(['/dashboard']);
         
-        this.toastService.success('Login successful! Welcome to your dashboard.');
+        this.toastService.success('Login successful!', 'Welcome');
         }
         console.log("check stauts",response.status)
       }),
@@ -68,7 +69,8 @@ export class AuthService {
     localStorage.removeItem('refresh_token'); // Clear refresh token on logout
     this.userSubject.next(null); // Clear user state
     this.router.navigate(['/auth/login']);
-    this.toastService.info('You have been logged out successfully.');
+    this.toastService.info('You have been logged out successfully.', 'Info', 5000);
+
   }
 
   getAccessToken(): string | null {
@@ -106,6 +108,7 @@ export class AuthService {
         this.toastService.success('Password changed successfully! Please log in with your new password.'); // Success toast
       }),
       catchError((error) => {
+        console.log(error)
         this.handleError(error); // Call handleError to display error messages
         return throwError(error);
       })
@@ -113,16 +116,13 @@ export class AuthService {
   }
 
   // Method to handle errors
-  private handleError(error: HttpErrorResponse) {
-    let errorMessage = 'An unknown error occurred!';
-    if (error.error instanceof ErrorEvent) {
-      // Client-side error
-      errorMessage = `Error: ${error.error.message}`;
+  private handleError(error: any) {
+    if (error.status === 403) {
+      this.toastService.error('User is inactive, password change is not allowed', 'Error');
     } else {
-      // Server-side error
-      errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
+      this.toastService.error('An unexpected error occurred. Please try again later.', 'Error');
     }
-    return throwError(errorMessage);
+    return throwError(error);
   }
 
   // Additional method to get the current user

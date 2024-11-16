@@ -19,22 +19,22 @@ def execute_query(query, params=None):
     try:
         cursor.execute(query, params)
         
-        # If it's an INSERT query, return the last inserted ID
+        # If it's a DELETE or UPDATE query, check how many rows are affected
+        if query.strip().upper().startswith(('DELETE', 'UPDATE')):
+            connection.commit()
+            print(f"{cursor.rowcount} rows affected.")  # Debug print
+            return cursor.rowcount > 0  # Return True if rows were affected
+        
+        # If it's an INSERT query
         if query.strip().upper().startswith('INSERT'):
             connection.commit()
             return cursor.lastrowid
         
-        # If it's a SELECT query, return all results
+        # If it's a SELECT query
         elif query.strip().upper().startswith('SELECT'):
-            result = cursor.fetchall()  # Fetch all rows from the result set
+            result = cursor.fetchall()
             return result
         
-        # For DELETE or UPDATE queries, return a success indicator
-        elif query.strip().upper().startswith(('DELETE', 'UPDATE')):
-            connection.commit()
-            return cursor.rowcount > 0  # Return True if rows were affected
-        
-        # For other types of queries (e.g., DROP, CREATE)
         connection.commit()
         return True
     
@@ -70,3 +70,6 @@ def fetch_all(query, params=None):
     finally:
         cursor.close()
         connection.close()
+
+
+

@@ -35,6 +35,7 @@ import { MatSortModule } from '@angular/material/sort';
 import { MatPaginatorModule } from '@angular/material/paginator'
 import { MatListModule } from '@angular/material/list';
 import { MatSidenavModule } from '@angular/material/sidenav';
+import { ToastService } from './services/toast.service';
 
 
 @NgModule({
@@ -48,7 +49,8 @@ import { MatSidenavModule } from '@angular/material/sidenav';
     HomePageComponent,
     HelpPageComponent,
     AboutusComponent,
-    RecyclingDataComponent  // Add the DialogComponent here
+    RecyclingDataComponent,
+
   ],
   imports: [
     CommonModule,
@@ -80,7 +82,8 @@ import { MatSidenavModule } from '@angular/material/sidenav';
     LoaderComponent,
     HomePageComponent,
     AboutusComponent,
-    RecyclingDataComponent
+    RecyclingDataComponent,
+
   ],
 
 })

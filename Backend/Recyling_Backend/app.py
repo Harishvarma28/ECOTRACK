@@ -21,7 +21,7 @@ def check_token():
     if request.method == 'OPTIONS':
         return
     
-    exempt_routes = ['user.login']
+    exempt_routes = ['user.login','user.change_password']
     if request.endpoint in exempt_routes:
         return
 
